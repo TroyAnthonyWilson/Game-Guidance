@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-user-login',
@@ -10,10 +11,15 @@ export class UserLoginComponent implements OnInit {
   type: string = 'password';
   isText: boolean = false;
   eyeIcon: string = 'fa-eye-slash';
+  loginForm!: FormGroup;
 
-  constructor() { }
+  constructor(private fb: FormBuilder) { }
 
   ngOnInit(): void {
+    this.loginForm = this.fb.group({
+      username: ['', [Validators.required]],
+      password: ['', [Validators.required, Validators.minLength(6)]]
+    });
   }
 
   hideShowPassword(){
