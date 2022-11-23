@@ -8,18 +8,6 @@
     margin-bottom: 10px;
 }
 
-#foget{
-    min-width: 100px;
-    margin-left: auto;
-    text-decoration: none;
-    cursor: pointer;
-}
-
-a:hover {
-    text-decoration: none;
-}
-
-
 
 .btn {
     margin-top: 20px;
@@ -43,11 +31,6 @@ a:hover {
     color: blue;
 }
 
-.input-field.error {
-    border: 1px solid red;
-    color: red;
-}
-
 input[type="text"], input[type="password"] {
     border: none;
     outline: none;
@@ -59,12 +42,4 @@ input[type="text"], input[type="password"] {
     border: none;
     outline: none;
     box-shadow: none;
-}
-
-img {
-    width: 40px;
-    height: 40px;
-    object-fit: cover;
-    border-radius: 50%;
-    position: relative;
 }
