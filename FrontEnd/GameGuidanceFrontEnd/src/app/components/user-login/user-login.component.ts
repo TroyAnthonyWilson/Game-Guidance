@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import ValidateForm from 'src/app/helpers/ValidateForm';
 
 @Component({
   selector: 'app-user-login',
@@ -33,5 +34,13 @@ export class UserLoginComponent implements OnInit {
       this.eyeIcon = 'fa-eye';
     }
   }
+
+  onSubmit(){
+    if(this.loginForm.valid){
+      console.log(this.loginForm.value);
+  }else{
+    ValidateForm.validateAllFormFileds(this.loginForm);
+  }
+}
 
 }

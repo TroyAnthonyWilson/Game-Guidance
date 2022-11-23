@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import ValidateForm from 'src/app/helpers/ValidateForm';
 
 @Component({
   selector: 'app-user-signup',
@@ -10,10 +12,16 @@ export class UserSignupComponent implements OnInit {
   type: string = 'password';
   isText: boolean = false;
   eyeIcon: string = 'fa-eye-slash';
+  signUpForm!: FormGroup;
 
-  constructor() { }
+
+  constructor(private fb: FormBuilder) { }
 
   ngOnInit(): void {
+    this.signUpForm = this.fb.group({
+      username: ['', [Validators.required]],
+      password: ['', [Validators.required, Validators.minLength(6)]]
+    });
   }
 
   hideShowPassword(){
@@ -28,4 +36,11 @@ export class UserSignupComponent implements OnInit {
     }
   }
 
+  onSignup(){
+    if(this.signUpForm.valid){
+      console.log(this.signUpForm.value);
+    }else{
+      ValidateForm.validateAllFormFileds(this.signUpForm);
+    }
+  }
 }
