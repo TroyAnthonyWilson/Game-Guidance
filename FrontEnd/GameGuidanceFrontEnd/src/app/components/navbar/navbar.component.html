@@ -1,1 +1,32 @@
-<p>navbar works!</p>
+
+ <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <a class="navbar-brand" (click)="navigateHome()">
+    <img src="assets/gglogo2.png" alt="" height="36">
+ </a>
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav ml-auto">
+      <div class="d-inline-flex">
+        <form class="form-inline my-2 my-lg-0 ml-5">
+          <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+          <button class="btn btn-outline-info my-2 my-sm-0" type="submit">Search</button>
+        </form>
+      </div>
+      <div class="d-inline-flex ml-auto">
+        <li class="nav-item ml-4">
+          <a class="nav-link" (click)="navigateHome()">Main Page</a>
+      </li>
+        <li class="nav-item">
+          <a class="nav-link" (click)="navigateToAboutPage()">About</a>
+      </li>
+        <li class="nav-item">
+          <a class="nav-link" (click)="navigateUserToLogout()">Logout</a>
+      </li>
+      </div>
+    </ul>
+
+  </div>
+</nav>
+
+
+
