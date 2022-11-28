@@ -37,9 +37,7 @@ namespace GameGuidanceAPI.Controllers
             if(userObj == null )
                 return BadRequest();
 
-            if(string.IsNullOrEmpty(userObj.UserName))
-                return BadRequest();
-
+            
             await _authContext.Users.AddAsync(userObj);
             await _authContext.SaveChangesAsync();
             return Ok(new { Message = "User Registered"});
