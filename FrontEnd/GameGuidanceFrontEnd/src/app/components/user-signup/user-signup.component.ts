@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import ValidateForm from 'src/app/helpers/ValidateForm';
+import { AuthService } from 'src/app/services/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-user-signup',
@@ -15,11 +17,11 @@ export class UserSignupComponent implements OnInit {
   signUpForm!: FormGroup;
 
 
-  constructor(private fb: FormBuilder) { }
+  constructor(private fb: FormBuilder, private auth: AuthService, private router: Router) { }
 
   ngOnInit(): void {
     this.signUpForm = this.fb.group({
-      username: ['', [Validators.required]],
+      userName: ['', [Validators.required]],
       password: ['', [Validators.required, Validators.minLength(6)]]
     });
   }
@@ -38,7 +40,18 @@ export class UserSignupComponent implements OnInit {
 
   onSignup(){
     if(this.signUpForm.valid){
-      console.log(this.signUpForm.value);
+      //console.log(this.signUpForm.value);
+      this.auth.signUp(this.signUpForm.value)
+      .subscribe({
+        next: (res =>{
+          alert(res.message);
+          this.signUpForm.reset();
+          this.router.navigate(['login']);
+        }),
+        error: (err => {
+          alert(err?.error.message);
+        })
+      })
     }else{
       ValidateForm.validateAllFormFileds(this.signUpForm);
     }
