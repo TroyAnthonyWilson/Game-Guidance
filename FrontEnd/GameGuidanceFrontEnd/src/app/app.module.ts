@@ -9,7 +9,11 @@ import { UserSignupComponent } from './components/user-signup/user-signup.compon
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { AboutComponent } from './components/about/about.component';
 import { RecommendedGamesComponent } from './components/recommended-games/recommended-games.component';
+import { MainPageComponent } from './components/main-page/main-page.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+
+
 
 
 @NgModule({
@@ -20,19 +24,19 @@ import { ReactiveFormsModule } from '@angular/forms';
     NavbarComponent,
     AboutComponent,
     RecommendedGamesComponent,
+    NgModule,
+    MainPageComponent,
 
-  
-
-
+ 
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     ReactiveFormsModule,
-    
+    NgbModule,
+    MainPageComponent,
   
-
-
+   
   ],
 
 })
