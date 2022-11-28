@@ -39,10 +39,10 @@ namespace GameGuidanceAPI.Controllers
         {
             if(userObj == null )
                 return BadRequest();
-            //Check username
+            
             if(await CheckUserNameExistAsync(userObj.UserName))
                 return BadRequest(new { message = "Username Already Exists!"});
-            //Check password Strength
+            
 
 
             userObj.Password = PasswordHasher.HashPassword(userObj.Password);
@@ -54,7 +54,7 @@ namespace GameGuidanceAPI.Controllers
 
         private async Task<bool> CheckUserNameExistAsync(string userName)
             => await _authContext.Users.AnyAsync(x => x.UserName == userName);
-        
+
 
     }
 }
