@@ -4,6 +4,11 @@ using GameGuidanceAPI.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System.IdentityModel.Tokens.Jwt;
+using System;
+using System.Text;
+using System.Security.Claims;
+using Microsoft.IdentityModel.Tokens;
 
 namespace GameGuidanceAPI.Controllers
 {
@@ -32,10 +37,16 @@ namespace GameGuidanceAPI.Controllers
 
             if(!PasswordHasher.VarifyPassword(userObj.Password, user.Password))
             {
-                return BadRequest(new { Message = "Password is Incorrect"});
+                return BadRequest(new {Message = "Password is Incorrect"});
             }
 
-            return Ok(new { Message = "Login Success!"});
+            user.Token = CreateJwt(user);
+            await _authContext.SaveChangesAsync();
+            return Ok(new 
+            { 
+                Token = user.Token,
+                Message = "Login Success!"
+            });
         }
 
 
@@ -59,6 +70,37 @@ namespace GameGuidanceAPI.Controllers
 
         private async Task<bool> CheckUserNameExistAsync(string userName)
             => await _authContext.Users.AnyAsync(x => x.UserName == userName);
+
+
+        private static string CreateJwt(User user)
+        {
+            var jwtTokenHandler = new JwtSecurityTokenHandler();
+            var key = Encoding.ASCII.GetBytes("veryverysceret.....");
+            var identity = new ClaimsIdentity(new Claim[]
+            {
+                //new Claim(ClaimTypes.Role, "user"),
+                new Claim(ClaimTypes.Name, user.UserName)
+            });
+
+            var credentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256);
+
+            var tokenDescriptor = new SecurityTokenDescriptor
+            {
+                Subject = identity,
+                Expires = DateTime.Now.AddDays(1),
+                SigningCredentials = credentials
+            };
+
+            var token = jwtTokenHandler.CreateToken(tokenDescriptor);
+
+            return jwtTokenHandler.WriteToken(token);
+        }
+
+        [HttpGet]
+        public async Task<ActionResult<User>> GetAllUsers()
+        {
+            return Ok(await _authContext.Users.ToListAsync());
+        }
 
 
     }
