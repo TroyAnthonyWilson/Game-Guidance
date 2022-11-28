@@ -17,6 +17,7 @@ namespace GameGuidanceAPI.Controllers
             _authContext= gameGuidanceDBContext;
         }
 
+
         [HttpPost("authenticate")]
         public async Task<IActionResult> Authenticate ([FromBody] User userObj)
         {
@@ -32,11 +33,17 @@ namespace GameGuidanceAPI.Controllers
             return Ok(new { Message = "Login Success!"});
         }
 
+
         [HttpPost("register")]
         public async Task<IActionResult> RegisterUser([FromBody] User userObj)
         {
             if(userObj == null )
                 return BadRequest();
+            //Check username
+            if(await CheckUserNameExistAsync(userObj.UserName))
+                return BadRequest(new { message = "Username Already Exists!"});
+            //Check password Strength
+
 
             userObj.Password = PasswordHasher.HashPassword(userObj.Password);
             userObj.Token = "";
@@ -44,6 +51,10 @@ namespace GameGuidanceAPI.Controllers
             await _authContext.SaveChangesAsync();
             return Ok(new { Message = "User Registered"});
         }
+
+        private async Task<bool> CheckUserNameExistAsync(string userName)
+            => await _authContext.Users.AnyAsync(x => x.UserName == userName);
+        
 
     }
 }
