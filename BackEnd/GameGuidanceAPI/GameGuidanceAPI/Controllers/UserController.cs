@@ -1,4 +1,5 @@
 ﻿using GameGuidanceAPI.Context;
+using GameGuidanceAPI.Helpers;
 using GameGuidanceAPI.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -37,7 +38,8 @@ namespace GameGuidanceAPI.Controllers
             if(userObj == null )
                 return BadRequest();
 
-            
+            userObj.Password = PasswordHasher.HashPassword(userObj.Password);
+            userObj.Token = "";
             await _authContext.Users.AddAsync(userObj);
             await _authContext.SaveChangesAsync();
             return Ok(new { Message = "User Registered"});
