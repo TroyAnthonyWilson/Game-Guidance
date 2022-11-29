@@ -45,7 +45,7 @@ export class UserLoginComponent implements OnInit {
         next: (res => {
           alert(res.message);
           this.loginForm.reset();
-          this.router.navigate(['mainpage']);
+          this.router.navigate(['home']);
         }),
         error: (err => {
           alert(err?.error.message);
