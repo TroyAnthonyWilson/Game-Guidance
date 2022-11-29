@@ -1,1 +1,68 @@
-<p>recommended-games works!</p>
+
+<div class="container">
+    <h3>Click here to start your game search</h3>
+</div>
+
+<hr />
+<button
+  style="margin: 50px; padding: 10px"
+  type="button"
+  class="btn btn-info"
+  (click)="openPopup()">
+  Start Search
+</button>
+<div
+  class="modal"
+  tabindex="-1"
+  role="dialog"
+  *ngFor="let question of getCurrentQuestion()"
+  [ngStyle]="{'display':displayStyle}">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title">{{question.userQuestion}}</h4>
+      </div>
+      <div class="modal-body">
+        <p>Get API response for items here in dropdown</p>
+        <select class="form-select" [(ngModel)]="selectedResponse">
+          <option selected>All</option>
+          <option value="option1">option1</option>
+          <option value="option2">option2</option>
+          <option value="option3">option3</option>
+        </select>
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary"
+                (click)="showNextQuestion()">
+          Next Question
+        </button>
+        <button type="button" class="btn btn-danger"
+                (click)="closePopup()">
+          Close
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<hr>
+<h1>Question Responses</h1>
+<hr>
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">Question No</th>
+      <th scope="col">Question</th>
+      <th scope="col">Answer</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let question of questionList">
+      <td>{{question.questionNumber}}</td>
+      <td>{{question.userQuestion}}</td>
+      <td>{{question.userResponse}}</td>
+    </tr>
+  </tbody>
+</table>

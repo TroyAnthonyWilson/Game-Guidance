@@ -22,5 +22,8 @@ export class NavbarComponent implements OnInit {
   navigateUserToLogout(){
     this.router.navigate(['/login']); // when user signs out -> go to sign in page
   }
+  navigateToRecommendedGames(){
+    this.router.navigate(['/gamesList']); // when user signs out -> go to sign in page
+  }
 
 }
