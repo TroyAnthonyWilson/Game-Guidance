@@ -22,7 +22,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     NavbarComponent,
     AboutComponent,
     RecommendedGamesComponent,
-    NgModule,
+    // NgModule,
     MainPageComponent,
   ],
   imports: [
@@ -31,8 +31,10 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     ReactiveFormsModule,
     HttpClientModule,
     NgbModule,
-    MainPageComponent,
+    // MainPageComponent,
   ],
+  providers: [],
+  bootstrap: [AppComponent],
 
 })
 export class AppModule { }
