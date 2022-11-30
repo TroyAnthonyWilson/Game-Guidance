@@ -15,7 +15,7 @@ import { ApiService } from 'src/app/services/api.service';
 
 
 export class MainPageComponent {
-  public users: any = [];
+  // public users: any = [];
 
   constructor(config: NgbRatingConfig, private api: ApiService) {
     // customize default values of ratings used by this component tree
@@ -23,11 +23,11 @@ export class MainPageComponent {
     config.readonly = true;
   }
 
-  ngOnInit(): void {
-    this.api.getUsers()
-    .subscribe(res => {
-      this.users = res;
-    })
-  }
+  // ngOnInit(): void {
+  //   this.api.getUsers()
+  //   .subscribe(res => {
+  //     this.users = res;
+  //   })
+  // }
 }
 
