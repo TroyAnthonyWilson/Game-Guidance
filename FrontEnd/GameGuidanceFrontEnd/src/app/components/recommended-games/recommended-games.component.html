@@ -1,68 +1,91 @@
+<app-navbar></app-navbar>
+<!-- header and button -->
+<div class="container text-center">
+  <div class="row">
+    <div class="col-sm-12 mt-4">
+      <h3>Click here to start your game search</h3>
+    </div>
+    <hr />
+    <div class="col-sm-12 mb-4">
+      <button
+        class="btn btn-outline-danger btn-lg col-12"
+        (click)="openPopup()"
+      >
+        Start Search
+      </button>
+    </div>
+  </div>
+</div>
+<hr />
+<!-- question bank -->
 
-<div class="container">
-    <h3>Click here to start your game search</h3>
+<div class="container text-center">
+  <div class="row">
+    <div class="col-sm-12 mt-4 mb-4">
+      <h3>Question Responses</h3>
+    </div>
+    <hr />
+    <div class="col-sm-12 mb-4">
+      <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">Question No</th>
+            <th scope="col">Question</th>
+            <th scope="col">Response</th>
+            <th scope="col">User has answered</th>
+            <th scope="col"></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let question of questionList">
+            <td *ngIf="question.isAnswered">{{ question.questionNumber }}</td>
+            <td *ngIf="question.isAnswered">{{ question.userQuestion }}</td>
+            <td *ngIf="question.isAnswered">{{ question.userResponse }}</td>
+            <td *ngIf="question.isAnswered">{{ question.isAnswered }}</td>
+            <td *ngIf="question.isAnswered"> <button class="btn btn-outline-info m-0"
+              >Edit</button></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
 </div>
 
-<hr />
-<button
-  style="margin: 50px; padding: 10px"
-  type="button"
-  class="btn btn-info"
-  (click)="openPopup()">
-  Start Search
-</button>
+<!-- question modal -->
 <div
   class="modal"
   tabindex="-1"
   role="dialog"
   *ngFor="let question of getCurrentQuestion()"
-  [ngStyle]="{'display':displayStyle}">
+  [ngStyle]="{ display: displayStyleQuestionModal }"
+>
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h4 class="modal-title">{{question.userQuestion}}</h4>
+        <h4 class="modal-title">{{ question.userQuestion }}</h4>
       </div>
       <div class="modal-body">
+        <p style="color: red">{{modalWarningText}}</p>
         <p>Get API response for items here in dropdown</p>
         <select class="form-select" [(ngModel)]="selectedResponse">
-          <option selected>All</option>
+          <option selected>None</option>
           <option value="option1">option1</option>
           <option value="option2">option2</option>
           <option value="option3">option3</option>
         </select>
-
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-primary"
-                (click)="showNextQuestion()">
+        <button
+          type="button"
+          class="btn btn-primary"
+          (click)="showNextQuestion()"
+        >
           Next Question
         </button>
-        <button type="button" class="btn btn-danger"
-                (click)="closePopup()">
+        <button type="button" class="btn btn-danger" (click)="closePopup()">
           Close
         </button>
       </div>
     </div>
   </div>
 </div>
-
-
-<hr>
-<h1>Question Responses</h1>
-<hr>
-<table class="table">
-  <thead>
-    <tr>
-      <th scope="col">Question No</th>
-      <th scope="col">Question</th>
-      <th scope="col">Answer</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr *ngFor="let question of questionList">
-      <td>{{question.questionNumber}}</td>
-      <td>{{question.userQuestion}}</td>
-      <td>{{question.userResponse}}</td>
-    </tr>
-  </tbody>
-</table>
