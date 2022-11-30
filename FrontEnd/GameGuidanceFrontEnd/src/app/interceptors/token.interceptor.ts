@@ -1,11 +1,6 @@
 import { Injectable } from '@angular/core';
-import {
-  HttpRequest,
-  HttpHandler,
-  HttpEvent,
-  HttpInterceptor
-} from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { HttpRequest,  HttpHandler,  HttpEvent,  HttpInterceptor,  HttpErrorResponse} from '@angular/common/http';
+import { catchError, Observable, throwError } from 'rxjs';
 import { AuthService } from '../services/auth.service';
 
 @Injectable()
@@ -18,10 +13,19 @@ export class TokenInterceptor implements HttpInterceptor {
 
     if(myToken){
       request = request.clone({
-        setHeaders: {Authorization: `Bearer is Cool`}
+        setHeaders: {Authorization: `Bearer ${myToken}`}
       })
     }
 
-    return next.handle(request);
+    return next.handle(request).pipe(
+      catchError((err: any) => {
+        if(err instanceof HttpErrorResponse){
+          if(err.status === 401){
+            this.auth.signOut();
+          }
+        }
+        return throwError(() => new Error("Some other error occured"))
+      })
+    );
   }
 }
