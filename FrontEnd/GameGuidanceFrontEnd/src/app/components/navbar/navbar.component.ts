@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-navbar',
@@ -8,7 +9,7 @@ import { Router } from '@angular/router';
 })
 export class NavbarComponent implements OnInit {
 
-  constructor(private router: Router) { }
+  constructor(private router: Router, private auth: AuthService) { }
 
   ngOnInit(): void {
   }
@@ -20,7 +21,11 @@ export class NavbarComponent implements OnInit {
     this.router.navigate(['/about']); // route to about page
   }
   navigateUserToLogout(){
-    this.router.navigate(['/login']); // when user signs out -> go to sign in page
+    this.auth.signOut();
   }
+  navigateToNewGame(){
+    this.router.navigate(['/findNewGame']); // when user signs out -> go to sign in page
+  }
+
 
 }

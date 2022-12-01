@@ -1,4 +1,7 @@
+
 import { Component, OnInit} from '@angular/core';
+import { NgbRatingConfig } from '@ng-bootstrap/ng-bootstrap';
+import { ApiService } from 'src/app/services/api.service';
 
 
 
@@ -13,14 +16,24 @@ import { Component, OnInit} from '@angular/core';
 
 
 export class MainPageComponent {
-  constructor() {
-    
-    
-    
-  }
+
   currentRate = 8;
-  ngOnInit(): void {
+
+  // public users: any = [];
+
+  constructor(config: NgbRatingConfig, private api: ApiService) {
+    // customize default values of ratings used by this component tree
+    config.max = 5;
+    config.readonly = true;
+
   }
+
+  // ngOnInit(): void {
+  //   this.api.getUsers()
+  //   .subscribe(res => {
+  //     this.users = res;
+  //   })
+  // }
 }
 
 
