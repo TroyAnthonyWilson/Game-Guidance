@@ -13,6 +13,6 @@ export class ApiService {
   // }
 
   UserData(tokenObj: any){
-    return this.http.post<any>(`${this.baseUrl}UserData?token=${tokenObj}`, tokenObj);
+    return this.http.post<any>(`${this.baseUrl}UserData`, {userToken: tokenObj});
   }
 }
