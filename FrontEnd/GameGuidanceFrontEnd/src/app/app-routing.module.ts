@@ -7,6 +7,7 @@ import { AboutComponent } from './components/about/about.component';
 import { AuthGuard } from './gaurds/auth.guard';
 import { RecommendedGamesComponent } from './components/recommended-games/recommended-games.component';
 
+const routes: Routes = [
   {path: 'login', component: UserLoginComponent},
   {path: 'signup', component: UserSignupComponent},
   {path: 'home', component: MainPageComponent, canActivate: [AuthGuard]},
@@ -14,6 +15,7 @@ import { RecommendedGamesComponent } from './components/recommended-games/recomm
   {path: 'about', component: AboutComponent},
   {path: '', redirectTo: '/login', pathMatch: 'full'}
 ];
+
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
