@@ -13,12 +13,12 @@ import { Component, OnInit} from '@angular/core';
 
 
 export class MainPageComponent {
-
-constructor() {
-   
-
-  
-}
+  constructor() {
+    
+    
+    
+  }
+  currentRate = 8;
   ngOnInit(): void {
   }
 }
