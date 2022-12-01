@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+
+import { Component, OnInit} from '@angular/core';
 import { NgbRatingConfig } from '@ng-bootstrap/ng-bootstrap';
 import { ApiService } from 'src/app/services/api.service';
 import { AuthService } from 'src/app/services/auth.service';
@@ -11,13 +12,17 @@ import { UserService } from 'src/app/services/user.service';
   selector: 'app-main-page',
   templateUrl: './main-page.component.html',
   styleUrls: ['./main-page.component.css'],
-  providers: [NgbRatingConfig],
+
 
 })
 
 
 export class MainPageComponent {
+
+  currentRate = 8;
+
    public users: any = [];
+
 
    public username: string = "";
 
@@ -25,6 +30,7 @@ export class MainPageComponent {
     // customize default values of ratings used by this component tree
     config.max = 5;
     config.readonly = true;
+
   }
 
   ngOnInit(): void {
@@ -47,4 +53,5 @@ export class MainPageComponent {
     });
   }
 }
+
 
