@@ -23,5 +23,9 @@ export class NavbarComponent implements OnInit {
   navigateUserToLogout(){
     this.auth.signOut();
   }
+  navigateToNewGame(){
+    this.router.navigate(['/findNewGame']); // when user signs out -> go to sign in page
+  }
+
 
 }
