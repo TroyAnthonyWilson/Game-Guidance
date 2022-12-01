@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { NgbRatingConfig } from '@ng-bootstrap/ng-bootstrap';
 import { ApiService } from 'src/app/services/api.service';
+import { AuthService } from 'src/app/services/auth.service';
+import { UserService } from 'src/app/services/user.service';
 
 
 
@@ -15,19 +17,34 @@ import { ApiService } from 'src/app/services/api.service';
 
 
 export class MainPageComponent {
-  // public users: any = [];
+   public users: any = [];
 
-  constructor(config: NgbRatingConfig, private api: ApiService) {
+   public username: string = "";
+
+  constructor(config: NgbRatingConfig, private api: ApiService,private auth: AuthService ,private userService: UserService) {
     // customize default values of ratings used by this component tree
     config.max = 5;
     config.readonly = true;
   }
 
-  // ngOnInit(): void {
-  //   this.api.getUsers()
-  //   .subscribe(res => {
-  //     this.users = res;
-  //   })
-  // }
+  ngOnInit(): void {
+    
+    // this.api.getUsers()
+    // .subscribe(res => {
+    //   this.users = res;
+    // });
+
+    this.userService.getUserName()
+    .subscribe(val => {
+      let usernameFromToken = this.auth.getUserNameFromToken();
+      this.username = val || usernameFromToken;
+    });
+
+    //get userdata from database
+    this.api.UserData(this.auth.getToken())
+    .subscribe(res => {
+      console.log(res);
+    });
+  }
 }
 
