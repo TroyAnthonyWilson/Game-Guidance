@@ -35,10 +35,7 @@ export class MainPageComponent {
 
   ngOnInit(): void {
     
-    // this.api.getUsers()
-    // .subscribe(res => {
-    //   this.users = res;
-    // });
+
 
     this.userService.getUserName()
     .subscribe(val => {
