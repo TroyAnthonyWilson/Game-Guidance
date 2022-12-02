@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Question } from 'src/app/interfaces/question';
+import { Answer } from 'src/app/interfaces/answer';
+import { GameService } from 'src/app/services/game.service';
 
 @Component({
   selector: 'app-recommended-games',
@@ -15,16 +17,21 @@ export class RecommendedGamesComponent implements OnInit {
   // selected question answer
   selectedResponse = '';
   modalWarningText = '';
-  constructor() {}
+  constructor(private service: GameService) {}
 
   ngOnInit(): void {
     this.populateQuestionList();
+    this.service.loadGameModes
   }
 
   openPopup(): void {
     this.displayStyleQuestionModal = 'block';
   }
-  openEditPopup(): void {
+  setQuestionNumber(number: Number) {
+    this.currentQuestionNo === number;
+  }
+  openEditPopup(question: Question): void {
+    this.setQuestionNumber(this.currentQuestionNo)
     this.displayEditResponseModal = 'block';
   }
   showNextQuestion(): void {
@@ -64,26 +71,33 @@ export class RecommendedGamesComponent implements OnInit {
     let newQuestion1: Question = {
       questionNumber: 1,
       userQuestion: 'What system(s)	do you want to play this game on?',
-      userResponse: 'option1',
+      userResponse: '',
       isAnswered: false,
+      options: ['Console', 'PC', 'No Preference']
     };
     let newQuestion2: Question = {
       questionNumber: 2,
       userQuestion: 'Do you want Single or Multiplayer?',
       userResponse: '',
       isAnswered: false,
+      options: ['SinglePlayer', 'MultiPlayer', 'NoPreference']
     };
     let newQuestion3: Question = {
       questionNumber: 3,
-      userQuestion: 'How old are you?',
+      userQuestion: 'What is your age range?',
       userResponse: '',
       isAnswered: false,
+      options: ['Less than 10 years old', 'between 10 and 13', 'between 13 and 17', '17 Years old', '18+ years old']
     };
     let newQuestion4: Question = {
       questionNumber: 4,
       userQuestion: 'What Genre of game are you interested in?',
       userResponse: '',
       isAnswered: false,
+      options: ['Fighting', 'Shooter', 'Music', 'Platform', 'Puzzle', 'Racing', 'Real Time Strategy (RTS)', 'Role-playing (RPG)', 'Simulator', 'Sport', 'Strategy', 
+      'Turn-based strategy (TBS)', 'Tactical', 'Quiz/Trivia', 'Hack and slash/Beat em up', 'Pinball', 'Adventure', 'Arcade', 'Visual Novel', 'Indie', 'Card & Board Game', 
+      'MOBA', 'Point-and-click'
+        ]
     };
     this.questionList = [
       newQuestion1,
