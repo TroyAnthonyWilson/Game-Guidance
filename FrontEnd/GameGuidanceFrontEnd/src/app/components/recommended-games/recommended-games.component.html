@@ -37,12 +37,12 @@
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let question of questionList">
+          <tr *ngFor="let question of questionList; index as i">
             <td *ngIf="question.isAnswered">{{ question.questionNumber }}</td>
             <td *ngIf="question.isAnswered">{{ question.userQuestion }}</td>
             <td *ngIf="question.isAnswered">{{ question.userResponse }}</td>
             <td *ngIf="question.isAnswered">{{ question.isAnswered }}</td>
-            <td *ngIf="question.isAnswered"> <button class="btn btn-outline-info m-0"
+            <td *ngIf="question.isAnswered"> <button (click)="setQuestionNumber(i + 1)" class="btn btn-outline-info m-0"
               >Edit</button></td>
           </tr>
         </tbody>
@@ -68,10 +68,8 @@
         <p style="color: red">{{modalWarningText}}</p>
         <p>Get API response for items here in dropdown</p>
         <select class="form-select" [(ngModel)]="selectedResponse">
-          <option selected>None</option>
-          <option value="option1">option1</option>
-          <option value="option2">option2</option>
-          <option value="option3">option3</option>
+            <option selected>None</option>
+            <option *ngFor="let o of question.options; index as i" value={{o}}>{{o}}</option>
         </select>
       </div>
       <div class="modal-footer">
