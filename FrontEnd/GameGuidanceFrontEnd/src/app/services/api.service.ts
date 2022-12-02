@@ -6,7 +6,7 @@ import { Injectable } from '@angular/core';
 })
 export class ApiService {
   
-  private baseUrl:string = "https://localhost:7117/api/User/";
+  private baseUrl:string = "https://localhost:7117/api/";
 
   constructor(private http: HttpClient) { }
 
@@ -15,6 +15,11 @@ export class ApiService {
   // }
 
   UserData(tokenObj: any){
-    return this.http.post<any>(`${this.baseUrl}UserData`, {userToken: tokenObj});
+    return this.http.post<any>(`${this.baseUrl}User/UserData`, {userToken: tokenObj});
   }
+
+  addfavorite(favorite: any){
+    return this.http.post<any>(`${this.baseUrl}UserFavorite/addfavorite`, favorite);
+  }
+
 }

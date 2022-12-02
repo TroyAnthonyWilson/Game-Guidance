@@ -44,7 +44,12 @@ export class MainPageComponent {
     });
 
     //get userdata from database
-    this.api.UserData(this.auth.getToken())
+    // this.api.UserData(this.auth.getToken())
+    // .subscribe(res => {
+    //   console.log(res);
+    // });
+
+    this.api.addfavorite({ gameID: 1})
     .subscribe(res => {
       console.log(res);
     });
