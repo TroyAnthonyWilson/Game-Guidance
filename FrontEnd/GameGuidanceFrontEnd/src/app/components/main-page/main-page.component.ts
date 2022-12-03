@@ -37,10 +37,7 @@ export class MainPageComponent  {
     });
 
 
-    // this.api.addfavorite({ gameID: 135938})
-    // .subscribe(res => {
-    //   console.log(res);
-    // });
+
 
  
   }

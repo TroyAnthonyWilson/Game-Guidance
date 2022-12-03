@@ -20,8 +20,8 @@ export class ApiService {
     return this.http.post<any>(`${this.baseUrl}User/UserData`, {userToken: tokenObj});
   }
 
-  addfavorite(favorite: any){
-    return this.http.post<any>(`${this.baseUrl}UserFavorite/addfavorite?gameId=${favorite.gameID}`, favorite);
+  addfavorite(Id: number){
+    return this.http.post<any>(`${this.baseUrl}UserFavorite/addfavorite?gameId=${Id}`, Id);
   }
 
   search = (search: any): Observable<Search[]> => {

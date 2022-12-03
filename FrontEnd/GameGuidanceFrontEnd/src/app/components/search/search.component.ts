@@ -26,9 +26,21 @@ export class SearchComponent implements OnInit {
   }
 
 loadSearchResult(){
+  if(this.search == ""){
+    console.log("No search");
+    return;
+  }
   this.api.search({search: this.search}).subscribe((data: Search[]) => {
     console.log(data);
     this.searchResult = data;
+  });
+}
+
+// add to favorites
+addToFavorites(id: number){
+  console.log("Add to favorites: " + id);
+  this.api.addfavorite(id).subscribe((data: any) => {
+    console.log(data);
   });
 }
 }

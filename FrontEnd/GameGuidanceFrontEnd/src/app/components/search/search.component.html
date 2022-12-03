@@ -1,6 +1,6 @@
 <app-navbar></app-navbar>
 <div *ngFor="let s of searchResult">
-    <h4>{{s.id}} {{s.name}}</h4>
+    <a (click)="addToFavorites(s.id)"><h4>{{s.id}} {{s.name}}</h4></a>
     <p>{{s.summary}}</p>
     <hr>
 </div>
