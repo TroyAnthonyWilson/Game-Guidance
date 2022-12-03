@@ -1,7 +1,7 @@
 
 import { Component, OnInit} from '@angular/core';
 import { NgbRatingConfig } from '@ng-bootstrap/ng-bootstrap';
-import { Search } from 'src/app/interfaces/search';
+import { Search } from 'src/app/interfaces/gameInfo';
 import { ApiService } from 'src/app/services/api.service';
 import { AuthService } from 'src/app/services/auth.service';
 import { UserService } from 'src/app/services/user.service';
