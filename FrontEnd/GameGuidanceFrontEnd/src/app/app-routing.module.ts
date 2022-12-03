@@ -6,6 +6,7 @@ import { UserSignupComponent } from './components/user-signup/user-signup.compon
 import { AboutComponent } from './components/about/about.component';
 import { AuthGuard } from './gaurds/auth.guard';
 import { RecommendedGamesComponent } from './components/recommended-games/recommended-games.component';
+import { SearchComponent } from './components/search/search.component';
 
 const routes: Routes = [
   {path: 'login', component: UserLoginComponent},
@@ -13,9 +14,9 @@ const routes: Routes = [
   {path: 'home', component: MainPageComponent, canActivate: [AuthGuard]},
   {path: 'findNewGame', component: RecommendedGamesComponent},
   {path: 'about', component: AboutComponent},
+  {path: 'search', component: SearchComponent},
   {path: '', redirectTo: '/login', pathMatch: 'full'}
 ];
-
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],

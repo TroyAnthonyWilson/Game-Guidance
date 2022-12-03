@@ -1,5 +1,7 @@
 import { HttpClient, HttpHandler, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
+import { Search } from '../interfaces/search';
 
 @Injectable({
   providedIn: 'root'
@@ -19,7 +21,11 @@ export class ApiService {
   }
 
   addfavorite(favorite: any){
-    return this.http.post<any>(`${this.baseUrl}UserFavorite/addfavorite`, favorite);
+    return this.http.post<any>(`${this.baseUrl}UserFavorite/addfavorite?gameId=${favorite.gameID}`, favorite);
   }
 
+  search = (search: any): Observable<Search[]> => {
+    return this.http.get<Search[]>(`${this.baseUrl}UserFavorite/search?search=${search.search}`);
+  }
+  
 }
