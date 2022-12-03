@@ -21,7 +21,7 @@ export class RecommendedGamesComponent implements OnInit {
 
   ngOnInit(): void {
     this.populateQuestionList();
-    this.service.loadGameModes
+    this.service.gameServicePackage();
   }
 
   openPopup(): void {
@@ -80,7 +80,7 @@ export class RecommendedGamesComponent implements OnInit {
       userQuestion: 'Do you want Single or Multiplayer?',
       userResponse: '',
       isAnswered: false,
-      options: ['SinglePlayer', 'MultiPlayer', 'NoPreference']
+      options: this.service.gameModes.map(x => x.name) //*Issue to be addressed: Answers only populate the second time the recommended-games page is opened */
     };
     let newQuestion3: Question = {
       questionNumber: 3,
@@ -94,16 +94,29 @@ export class RecommendedGamesComponent implements OnInit {
       userQuestion: 'What Genre of game are you interested in?',
       userResponse: '',
       isAnswered: false,
-      options: ['Fighting', 'Shooter', 'Music', 'Platform', 'Puzzle', 'Racing', 'Real Time Strategy (RTS)', 'Role-playing (RPG)', 'Simulator', 'Sport', 'Strategy', 
-      'Turn-based strategy (TBS)', 'Tactical', 'Quiz/Trivia', 'Hack and slash/Beat em up', 'Pinball', 'Adventure', 'Arcade', 'Visual Novel', 'Indie', 'Card & Board Game', 
-      'MOBA', 'Point-and-click'
-        ]
+      options: this.service.genres.map(x => x.name) //*Issue to be addressed: Answers only populate the second time the recommended-games page is opened */
+    };
+    let newQuestion5: Question = {
+      questionNumber: 5,
+      userQuestion: 'What perspective would you prefer in your next game?',
+      userResponse: '',
+      isAnswered: false,
+      options: this.service.playerPerspectives.map(x => x.name) //*Issue to be addressed: Answers only populate the second time the recommended-games page is opened */
+    };
+    let newQuestion6: Question = {
+      questionNumber: 6,
+      userQuestion: 'Which of these themes appeals to you the most?',
+      userResponse: '',
+      isAnswered: false,
+      options: this.service.themes.map(x => x.name) //*Issue to be addressed: Answers only populate the second time the recommended-games page is opened */
     };
     this.questionList = [
       newQuestion1,
       newQuestion2,
       newQuestion3,
       newQuestion4,
+      newQuestion5,
+      newQuestion6
     ];
   }
 }
