@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Question } from 'src/app/interfaces/question';
 import { Answer } from 'src/app/interfaces/answer';
 import { GameService } from 'src/app/services/game.service';
+import { QuestionService } from 'src/app/services/question.service';
 
 @Component({
   selector: 'app-recommended-games',
@@ -17,11 +18,12 @@ export class RecommendedGamesComponent implements OnInit {
   // selected question answer
   selectedResponse = '';
   modalWarningText = '';
-  constructor(private service: GameService) {}
+  constructor(private service: GameService, private questionService: QuestionService) {}
 
   ngOnInit(): void {
     this.populateQuestionList();
     this.service.gameServicePackage();
+    this.questionService.loadQuestions();
   }
 
   openPopup(): void {
