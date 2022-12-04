@@ -16,6 +16,10 @@ export class FavoriteService {
     return this.http.post<any>(`${this.baseUrl}addfavorite?gameId=${Id}`, Id);
   } 
 
+  removeFavorite(Id: number){
+    return this.http.delete<any>(`${this.baseUrl}removefavorite?gameId=${Id}`);
+  }
+
   //return user favorites from database
   getFavorites= (): Observable<UserFavorite[]> => {
     return this.http.get<any>(`${this.baseUrl}getfavorites`);

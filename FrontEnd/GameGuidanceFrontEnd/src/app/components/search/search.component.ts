@@ -32,7 +32,7 @@ export class SearchComponent implements OnInit {
 
 loadSearchResult(){
   this.getFavorites();
-  console.log("favorites: " + this.favoritesIds);
+  //console.log("favorites: " + this.favoritesIds);
 
   if(this.search == ""){
     alert("Please enter a search term");
@@ -40,7 +40,7 @@ loadSearchResult(){
   }
 
   this.searching.search({search: this.search}).subscribe((data: Search[]) => {
-    console.log(data);
+    //console.log(data);
     this.searchResult = data;
   });
 }
@@ -57,19 +57,27 @@ loadSearchResult(){
     this.favorites.forEach((fav) => {
       ids.push(fav.gameId);
     });
-    console.log("ids: " + ids);
+    //console.log("ids: " + ids);
     
     this.favoritesIds = ids;
-    console.log("favoritesIds: " + this.favoritesIds);
-    
+    //console.log("favoritesIds: " + this.favoritesIds);   
   };
 
 // add to favorites
 addToFavorites(id: number){
   console.log("Add to favorites: " + id);
   this.favorite.addfavorite(id).subscribe((data: any) => {
-    console.log(data);
+    //console.log(data);
     this.getFavorites();
-  });
+  }); 
   };
+
+// remove from favorites
+removeFromFavorites(id: number){
+  console.log("Remove from favorites: " + id);
+  this.favorite.removeFavorite(id).subscribe((data: any) => {
+    //console.log(data);
+    this.getFavorites();
+  }); 
+  }
 }
