@@ -32,9 +32,6 @@ export class SearchComponent implements OnInit {
 
 loadSearchResult(){
   this.getFavorites();
-
-
-
   console.log("favorites: " + this.favoritesIds);
 
   if(this.search == ""){
@@ -47,7 +44,6 @@ loadSearchResult(){
     this.searchResult = data;
   });
 }
-
 
  getFavorites = () : void => {
     this.favorite.getFavorites().subscribe((data: any) => {
@@ -73,7 +69,7 @@ addToFavorites(id: number){
   console.log("Add to favorites: " + id);
   this.favorite.addfavorite(id).subscribe((data: any) => {
     console.log(data);
-    this.loadSearchResult();
+    this.getFavorites();
   });
   };
 }
