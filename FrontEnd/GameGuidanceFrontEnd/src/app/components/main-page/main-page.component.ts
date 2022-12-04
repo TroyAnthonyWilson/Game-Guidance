@@ -27,20 +27,15 @@ export class MainPageComponent  {
   }
 
   ngOnInit(): void {
-    
+    this.getUserNameFromToken();
+  }
 
 
-    this.userService.getUserName()
-    .subscribe(val => {
-      let usernameFromToken = this.auth.getUserNameFromToken();
-      this.username = val || usernameFromToken;
-    });
-
-
-
-
- 
+    getUserNameFromToken(){
+      this.userService.getUserName()
+      .subscribe(val => {
+        let usernameFromToken = this.auth.getUserNameFromToken();
+        this.username = val || usernameFromToken;
+      });
   }
 }
-
-
