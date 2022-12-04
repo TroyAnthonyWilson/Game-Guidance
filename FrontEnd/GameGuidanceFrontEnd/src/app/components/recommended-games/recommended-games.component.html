@@ -38,8 +38,8 @@
         </thead>
         <tbody>
           <tr *ngFor="let question of questionList; index as i">
-            <td *ngIf="question.isAnswered">{{ question.questionNumber }}</td>
-            <td *ngIf="question.isAnswered">{{ question.userQuestion }}</td>
+            <td *ngIf="question.isAnswered">{{ question.id }}</td>
+            <td *ngIf="question.isAnswered">{{ question.questionName }}</td>
             <td *ngIf="question.isAnswered">{{ question.userResponse }}</td>
             <td *ngIf="question.isAnswered">{{ question.isAnswered }}</td>
             <td *ngIf="question.isAnswered"> <button (click)="setQuestionNumber(i + 1)" class="btn btn-outline-info m-0"
@@ -62,7 +62,7 @@
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h4 class="modal-title">{{ question.userQuestion }}</h4>
+        <h4 class="modal-title">{{ question.questionName }}</h4>
       </div>
       <div class="modal-body">
         <p style="color: red">{{modalWarningText}}</p>

@@ -9,17 +9,11 @@ import { HttpClient } from '@angular/common/http';
 export class QuestionService {
 
   constructor(private httpClient: HttpClient) { }
-  baseURL: string = 'https://localhost:7117/api';
-  questions: Question[] = []
-  // getQuestion = (): Observable<Question[]> => {
-  //   return this.httpClient.get<Question[]>(`${this.baseURL}/PlayerPerspective/GetPlayerPerspectives`)}
+  backendURL: string = 'https://localhost:7117/api';
 
-  loadQuestions = (): void => {
-    this.getQuestions().subscribe((data  => this.questions = data));
-    console.log(this.questions)
+
+  getAllQuestions = (): Observable<Question[]> => {
+    return this.httpClient.get<Question[]>(this.backendURL + '/Question/GetAllQuestions');
   }
-      
-  getQuestions = (): Observable<Question[]> => {
-    return this.httpClient.get<Question[]>(`${this.baseURL}/Question`)
-  }
+
 }
