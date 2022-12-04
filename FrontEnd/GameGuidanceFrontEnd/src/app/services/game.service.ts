@@ -53,9 +53,6 @@ export class GameService {
 
   loadThemes = (): void => {
     this.getThemes().subscribe((data  => this.themes = data));
-    if (this.themes.length === 22) {
-      this.themes.splice(22, 1)
-    }
     let themeNames: string[] = this.themes.map(x => x.name);
     console.log(themeNames)
   }
