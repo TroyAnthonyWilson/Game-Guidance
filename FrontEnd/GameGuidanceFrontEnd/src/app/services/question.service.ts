@@ -25,15 +25,15 @@ export class QuestionService {
     );
   };
 
-  getChoicesForQuestionId = (questionId: number): Observable<Choice[]> => {
-    return this.httpClient.get<Choice[]>(
-      this.backendURL + '/Question/GetChoicesToQuestionId/' + questionId
-    );
-  };
-
   getAllChoices = (): Observable<Choice[]> => {
     return this.httpClient.get<Choice[]>(
       this.backendURL + '/Question/GetAllChoices/'
+    );
+  };
+
+  getChoicesForQuestionId = (questionId: number): Observable<Choice[]> => {
+    return this.httpClient.get<Choice[]>(
+      this.backendURL + '/Question/GetChoicesToQuestionId/' + questionId
     );
   };
 
