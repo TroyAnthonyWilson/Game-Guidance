@@ -1,7 +1,7 @@
 
-import { Component, OnInit} from '@angular/core';
+import { Component} from '@angular/core';
+import { FormControl } from '@angular/forms';
 import { NgbRatingConfig } from '@ng-bootstrap/ng-bootstrap';
-import { Search } from 'src/app/interfaces/gameInfo';
 import { UserFavorite } from 'src/app/interfaces/user-favorite';
 import { AuthService } from 'src/app/services/auth.service';
 import { FavoriteService } from 'src/app/services/favorite.service';
@@ -15,16 +15,14 @@ import { UserService } from 'src/app/services/user.service';
 
 export class MainPageComponent  {
 
-   currentRate = 8;
    public users: any = [];
    public username: string = "";
    favorites: UserFavorite[] = [];
+   ratingControl = new FormControl(0);
 
   constructor(config: NgbRatingConfig, private favorite : FavoriteService,private auth: AuthService ,private userService: UserService) {
     // customize default values of ratings used by this component tree
-    config.max = 5;
-    config.readonly = true;
-
+     config.max = 5;
   }
 
   ngOnInit(): void {
@@ -44,26 +42,13 @@ export class MainPageComponent  {
   getFavorites = () : void => {
     this.favorite.getFavorites().subscribe((data: any) => {
       this.favorites = data;
-      //this.getFavoritesIds();
     });
   }
-
-  // getFavoritesIds = () => {
-  //   let ids: Number[] = [];
-  //   this.favorites.forEach((fav) => {
-  //     ids.push(fav.gameId);
-  //   });
-  //   console.log("ids: " + ids);
-    
-  //   this.favoritesIds = ids;
-  //   console.log("favoritesIds: " + this.favoritesIds);   
-  // };
 
 // add to favorites
 addToFavorites(id: number){
   console.log("Add to favorites: " + id);
-  this.favorite.addfavorite(id).subscribe((data: any) => {
-    //console.log(data);
+  this.favorite.addfavorite(id).subscribe(() => {
     this.getFavorites();
   }); 
   };
@@ -71,9 +56,14 @@ addToFavorites(id: number){
 // remove from favorites
 removeFromFavorites(id: number){
   console.log("Remove from favorites: " + id);
-  this.favorite.removeFavorite(id).subscribe((data: any) => {
-    //console.log(data);
+  this.favorite.removeFavorite(id).subscribe(() => {
     this.getFavorites();
   }); 
+  }
+
+  updateRating(id: number, rating: number){
+    this.favorite.updateRating(id, rating).subscribe(() => {
+      this.getFavorites();
+    }); 
   }
 }

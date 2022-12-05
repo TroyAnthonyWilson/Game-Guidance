@@ -20,8 +20,11 @@ export class FavoriteService {
     return this.http.delete<any>(`${this.baseUrl}removefavorite?gameId=${Id}`);
   }
 
-  //return user favorites from database
   getFavorites= (): Observable<UserFavorite[]> => {
     return this.http.get<any>(`${this.baseUrl}getfavorites`);
   }  
+
+  updateRating(Id: number, rating: number){
+    return this.http.put<any>(`${this.baseUrl}updaterating?gameId=${Id}&rating=${rating}`, Id);
+  }
 }

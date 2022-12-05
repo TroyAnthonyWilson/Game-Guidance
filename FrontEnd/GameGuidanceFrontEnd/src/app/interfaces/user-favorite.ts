@@ -4,4 +4,5 @@ export interface UserFavorite {
     userId: number;
     name: string;
     summary: string;
+    rating: number;
 }
