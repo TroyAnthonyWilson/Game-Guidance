@@ -3,4 +3,5 @@ export interface Question {
   userQuestion?: string;
   userResponse?: string;
   isAnswered: boolean;
+  options: string[];
 }

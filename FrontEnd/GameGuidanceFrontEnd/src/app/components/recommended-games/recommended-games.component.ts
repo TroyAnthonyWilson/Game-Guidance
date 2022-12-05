@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Question } from 'src/app/interfaces/question';
+import { Answer } from 'src/app/interfaces/answer';
+import { GameService } from 'src/app/services/game.service';
+import { QuestionService } from 'src/app/services/question.service';
 
 @Component({
   selector: 'app-recommended-games',
@@ -15,16 +18,22 @@ export class RecommendedGamesComponent implements OnInit {
   // selected question answer
   selectedResponse = '';
   modalWarningText = '';
-  constructor() {}
+  constructor(private service: GameService, private questionService: QuestionService) {}
 
   ngOnInit(): void {
     this.populateQuestionList();
+    this.service.gameServicePackage();
+    this.questionService.loadQuestions();
   }
 
   openPopup(): void {
     this.displayStyleQuestionModal = 'block';
   }
-  openEditPopup(): void {
+  setQuestionNumber(number: Number) {
+    this.currentQuestionNo === number;
+  }
+  openEditPopup(question: Question): void {
+    this.setQuestionNumber(this.currentQuestionNo)
     this.displayEditResponseModal = 'block';
   }
   showNextQuestion(): void {
@@ -64,32 +73,52 @@ export class RecommendedGamesComponent implements OnInit {
     let newQuestion1: Question = {
       questionNumber: 1,
       userQuestion: 'What system(s)	do you want to play this game on?',
-      userResponse: 'option1',
+      userResponse: '',
       isAnswered: false,
+      options: ['Console', 'PC', 'No Preference']
     };
     let newQuestion2: Question = {
       questionNumber: 2,
       userQuestion: 'Do you want Single or Multiplayer?',
       userResponse: '',
       isAnswered: false,
+      options: this.service.gameModes.map(x => x.name) //*Issue to be addressed: Answers only populate the second time the recommended-games page is opened */
     };
     let newQuestion3: Question = {
       questionNumber: 3,
-      userQuestion: 'How old are you?',
+      userQuestion: 'What is your age range?',
       userResponse: '',
       isAnswered: false,
+      options: ['Less than 10 years old', 'between 10 and 13', 'between 13 and 17', '17 Years old', '18+ years old']
     };
     let newQuestion4: Question = {
       questionNumber: 4,
       userQuestion: 'What Genre of game are you interested in?',
       userResponse: '',
       isAnswered: false,
+      options: this.service.genres.map(x => x.name) //*Issue to be addressed: Answers only populate the second time the recommended-games page is opened */
+    };
+    let newQuestion5: Question = {
+      questionNumber: 5,
+      userQuestion: 'What perspective would you prefer in your next game?',
+      userResponse: '',
+      isAnswered: false,
+      options: this.service.playerPerspectives.map(x => x.name) //*Issue to be addressed: Answers only populate the second time the recommended-games page is opened */
+    };
+    let newQuestion6: Question = {
+      questionNumber: 6,
+      userQuestion: 'Which of these themes appeals to you the most?',
+      userResponse: '',
+      isAnswered: false,
+      options: this.service.themes.map(x => x.name) //*Issue to be addressed: Answers only populate the second time the recommended-games page is opened */
     };
     this.questionList = [
       newQuestion1,
       newQuestion2,
       newQuestion3,
       newQuestion4,
+      newQuestion5,
+      newQuestion6
     ];
   }
 }

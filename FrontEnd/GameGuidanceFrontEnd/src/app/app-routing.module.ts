@@ -6,16 +6,17 @@ import { UserSignupComponent } from './components/user-signup/user-signup.compon
 import { AboutComponent } from './components/about/about.component';
 import { AuthGuard } from './gaurds/auth.guard';
 import { RecommendedGamesComponent } from './components/recommended-games/recommended-games.component';
+import { SearchComponent } from './components/search/search.component';
 
 const routes: Routes = [
   {path: 'login', component: UserLoginComponent},
   {path: 'signup', component: UserSignupComponent},
   {path: 'home', component: MainPageComponent, canActivate: [AuthGuard]},
-  {path: 'findNewGame', component: RecommendedGamesComponent},
+  {path: 'findNewGame', component: RecommendedGamesComponent, canActivate: [AuthGuard]},
   {path: 'about', component: AboutComponent},
+  {path: 'search', component: SearchComponent, canActivate: [AuthGuard]},
   {path: '', redirectTo: '/login', pathMatch: 'full'}
 ];
-
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],

@@ -14,6 +14,7 @@ import { NavbarComponent } from './components/navbar/navbar.component';
 import { AboutComponent } from './components/about/about.component';
 import { RecommendedGamesComponent } from './components/recommended-games/recommended-games.component';
 import { MainPageComponent } from './components/main-page/main-page.component';
+import { SearchComponent } from  './components/search/search.component';
 
 
 @NgModule({
@@ -26,6 +27,7 @@ import { MainPageComponent } from './components/main-page/main-page.component';
     RecommendedGamesComponent,
     // NgModule,
     MainPageComponent,
+    SearchComponent,
   ],
   imports: [
     BrowserModule,

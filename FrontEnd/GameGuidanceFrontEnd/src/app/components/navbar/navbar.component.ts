@@ -9,6 +9,8 @@ import { AuthService } from 'src/app/services/auth.service';
 })
 export class NavbarComponent implements OnInit {
 
+  search: string = "";
+
   constructor(private router: Router, private auth: AuthService) { }
 
   ngOnInit(): void {
@@ -27,5 +29,8 @@ export class NavbarComponent implements OnInit {
     this.router.navigate(['/findNewGame']); // when user signs out -> go to sign in page
   }
 
+  submit = (search: string) => {
+    this.router.navigate(['/search'], { queryParams: { search: search } });
+  }
 
 }
