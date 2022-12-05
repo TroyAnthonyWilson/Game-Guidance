@@ -12,9 +12,9 @@ const routes: Routes = [
   {path: 'login', component: UserLoginComponent},
   {path: 'signup', component: UserSignupComponent},
   {path: 'home', component: MainPageComponent, canActivate: [AuthGuard]},
-  {path: 'findNewGame', component: RecommendedGamesComponent},
+  {path: 'findNewGame', component: RecommendedGamesComponent, canActivate: [AuthGuard]},
   {path: 'about', component: AboutComponent},
-  {path: 'search', component: SearchComponent},
+  {path: 'search', component: SearchComponent, canActivate: [AuthGuard]},
   {path: '', redirectTo: '/login', pathMatch: 'full'}
 ];
 
