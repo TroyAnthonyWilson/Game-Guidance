@@ -1,5 +1,5 @@
 
-import { Component, OnInit} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { NgbRatingConfig } from '@ng-bootstrap/ng-bootstrap';
 import { Search } from 'src/app/interfaces/gameInfo';
 import { UserFavorite } from 'src/app/interfaces/user-favorite';
@@ -13,14 +13,14 @@ import { UserService } from 'src/app/services/user.service';
   styleUrls: ['./main-page.component.css'],
 })
 
-export class MainPageComponent  {
+export class MainPageComponent {
 
-   currentRate = 8;
-   public users: any = [];
-   public username: string = "";
-   favorites: UserFavorite[] = [];
+  currentRate = 8;
+  public users: any = [];
+  public username: string = "";
+  favorites: UserFavorite[] = [];
 
-  constructor(config: NgbRatingConfig, private favorite : FavoriteService,private auth: AuthService ,private userService: UserService) {
+  constructor(config: NgbRatingConfig, private favorite: FavoriteService, private auth: AuthService, private userService: UserService) {
     // customize default values of ratings used by this component tree
     config.max = 5;
     config.readonly = true;
@@ -33,15 +33,15 @@ export class MainPageComponent  {
   }
 
 
-    getUserNameFromToken(){
-      this.userService.getUserName()
+  getUserNameFromToken() {
+    this.userService.getUserName()
       .subscribe(val => {
         let usernameFromToken = this.auth.getUserNameFromToken();
         this.username = val || usernameFromToken;
       });
   }
 
-  getFavorites = () : void => {
+  getFavorites = (): void => {
     this.favorite.getFavorites().subscribe((data: any) => {
       this.favorites = data;
       //this.getFavoritesIds();
@@ -54,26 +54,26 @@ export class MainPageComponent  {
   //     ids.push(fav.gameId);
   //   });
   //   console.log("ids: " + ids);
-    
+
   //   this.favoritesIds = ids;
   //   console.log("favoritesIds: " + this.favoritesIds);   
   // };
 
-// add to favorites
-addToFavorites(id: number){
-  console.log("Add to favorites: " + id);
-  this.favorite.addfavorite(id).subscribe((data: any) => {
-    //console.log(data);
-    this.getFavorites();
-  }); 
+  // add to favorites
+  addToFavorites(id: number) {
+    console.log("Add to favorites: " + id);
+    this.favorite.addfavorite(id).subscribe((data: any) => {
+      //console.log(data);
+      this.getFavorites();
+    });
   };
 
-// remove from favorites
-removeFromFavorites(id: number){
-  console.log("Remove from favorites: " + id);
-  this.favorite.removeFavorite(id).subscribe((data: any) => {
-    //console.log(data);
-    this.getFavorites();
-  }); 
+  // remove from favorites
+  removeFromFavorites(id: number) {
+    console.log("Remove from favorites: " + id);
+    this.favorite.removeFavorite(id).subscribe((data: any) => {
+      //console.log(data);
+      this.getFavorites();
+    });
   }
 }
