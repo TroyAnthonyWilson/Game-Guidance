@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Choice } from 'src/app/interfaces/choice';
 import { GameService } from 'src/app/services/game.service';
 import { QuestionService } from 'src/app/services/question.service';
 import { Question } from '../../interfaces/question';
@@ -10,6 +11,7 @@ import { Question } from '../../interfaces/question';
 })
 export class RecommendedGamesComponent implements OnInit {
   questionList: Question[] = [];
+  choicesList: Choice[] = [];
   currentQuestionNo: number = 1;
   // css variable
   displayStyleQuestionModal = 'none';
@@ -22,42 +24,40 @@ export class RecommendedGamesComponent implements OnInit {
   constructor(private service: GameService, private questionService: QuestionService) {}
 
   ngOnInit(): void {
-    // this.populateQuestionList();
+    this.populateQuestionList();
+    this.getAllChoices();
+
     // this.service.gameServicePackage();
-    this.mapQuestionsApiResponse();
-    // console.log(this.backEndQuestionList);
-
-
-
   }
 
-  mapQuestionsApiResponse(): void {
+  populateQuestionList(): void {
     this.questionService.getAllQuestions().subscribe((response) => {
       this.questionList = response;
-      console.log(this.questionList);
-
-    });
-  }
-  populateQuestionList(): void{
-    this.questionList.forEach(question => {
-      let newFrontEndQuestion: Question = {
-        id: question.id,
-        questionName: question.questionName,
-        userResponse: '',
-        isAnswered: false,
-        options: []
-      }
-      this.questionList.push(newFrontEndQuestion);
+      // console.log(this.questionList);
 
     });
   }
 
+  getAllChoices= (): void => {
+    this.questionService.getAllChoices().subscribe((response) => {
+      this.choicesList = response;
+      // console.log(this.choicesList);
+    });
 
+  }
 
+  setQuestionOptions(questionArray: Question[]): void{
+    for (let i = 0; i < questionArray.length; i++) {
+      const question = questionArray[i];
+      question.options = this.questionService.returnStringChoicesForQuestion(question.id);
+    }
+
+  }
 
   openPopup(): void {
     this.displayStyleQuestionModal = 'block';
-    console.log(this.questionList);
+    this.setQuestionOptions(this.questionList);
+
   }
   setQuestionNumber(number: Number) {
     this.currentQuestionNo === number;

@@ -69,7 +69,7 @@
         <p>Get API response for items here in dropdown</p>
         <select class="form-select" [(ngModel)]="selectedResponse">
             <option selected>None</option>
-            <option *ngFor="let o of question.options; index as i" value={{o}}>{{o}}</option>
+            <option *ngFor="let choice of question.options; index as i" value={{choice}}>{{choice}}</option>
         </select>
       </div>
       <div class="modal-footer">
