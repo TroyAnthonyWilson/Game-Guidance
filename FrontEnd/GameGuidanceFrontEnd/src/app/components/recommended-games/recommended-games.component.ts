@@ -26,6 +26,9 @@ export class RecommendedGamesComponent implements OnInit {
   ngOnInit(): void {
     this.populateQuestionList();
     this.getAllChoices();
+    this.getOptionsForQuestionId(1);
+    // console.log(this.choicesList);
+
 
     // this.service.gameServicePackage();
   }
@@ -46,10 +49,25 @@ export class RecommendedGamesComponent implements OnInit {
 
   }
 
+  getOptionsForQuestionId = (questionId: number) : string[] => {
+    let options: string[] = [];
+    this.questionService.getChoicesForQuestionId(questionId).subscribe((data: any) => {
+      this.choicesList = data;
+      this.choicesList.forEach((c)=>{
+        options.push(c.choiceName);
+        // console.log(c);
+      });
+
+    });
+    console.log(options);
+
+    return options;
+  }
+
   setQuestionOptions(questionArray: Question[]): void{
     for (let i = 0; i < questionArray.length; i++) {
       const question = questionArray[i];
-      question.options = this.questionService.returnStringChoicesForQuestion(question.id);
+      question.options = this.getOptionsForQuestionId(question.id);
     }
 
   }
