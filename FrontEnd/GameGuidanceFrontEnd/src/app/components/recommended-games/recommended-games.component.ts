@@ -40,14 +40,14 @@ export class RecommendedGamesComponent implements OnInit {
 
   }
 
-  getOptionsForQuestionId = (questionId: number) : string[] => {
-    let options: string[] = [];
+  getOptionsForQuestionId = (questionId: number) : Choice[] => {
+    let options: Choice[] = [];
     this.questionService.getChoicesForQuestionId(questionId).subscribe((data: any) => {
       this.choicesList = data;
       console.log(this.choicesList);     
 
       this.choicesList.forEach((c)=>{
-        options.push(c.choiceName);
+        options.push(c);
       });
 
     });

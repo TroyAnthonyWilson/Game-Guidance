@@ -85,7 +85,7 @@
         <select class="form-select" [(ngModel)]="selectedResponse">
             <option selected>None</option>
             <option>No Preference</option>
-            <option *ngFor="let choice of question.options; index as i" value={{choice}}>{{choice}}</option>
+            <option *ngFor="let choice of choicesList; index as i" value={{choice.id}}>{{choice.choiceName}}</option>
         </select>
       </div>
       <div class="modal-footer">
@@ -95,4 +95,3 @@
     </div>
   </div>
 </div>
-<h1>hi</h1>
