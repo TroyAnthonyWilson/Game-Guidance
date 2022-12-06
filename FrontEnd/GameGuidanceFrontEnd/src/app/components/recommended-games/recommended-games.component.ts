@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { Choice } from 'src/app/interfaces/choice';
-import { GameService } from 'src/app/services/game.service';
 import { QuestionService } from 'src/app/services/question.service';
 import { Question } from '../../interfaces/question';
 
@@ -12,7 +11,7 @@ import { Question } from '../../interfaces/question';
 export class RecommendedGamesComponent implements OnInit {
   questionList: Question[] = [];
   choicesList: Choice[] = [];
-  currentQuestionNo: number = 1;
+  currentQuestionNo: number = 0;
   // css variable
   displayStyleQuestionModal = 'none';
   displayEditResponseModal = 'none';
@@ -21,17 +20,16 @@ export class RecommendedGamesComponent implements OnInit {
   modalWarningText = '';
 
 
-  constructor(private service: GameService, private questionService: QuestionService) {}
+  constructor(private questionService: QuestionService) {}
 
   ngOnInit(): void {
     this.populateQuestionList();
-    this.getOptionsForQuestionId(1);
   }
 
   populateQuestionList(): void {
     this.questionService.getAllQuestions().subscribe((response) => {
       this.questionList = response;
-
+      this.currentQuestionNo = this.questionList[0].id;
     });
   }
 
@@ -46,6 +44,8 @@ export class RecommendedGamesComponent implements OnInit {
     let options: string[] = [];
     this.questionService.getChoicesForQuestionId(questionId).subscribe((data: any) => {
       this.choicesList = data;
+      console.log(this.choicesList);     
+
       this.choicesList.forEach((c)=>{
         options.push(c.choiceName);
       });
