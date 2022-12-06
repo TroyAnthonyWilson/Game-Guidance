@@ -28,7 +28,7 @@ export class QuestionService {
   }
 
   changeAnswer = (id: number, answer: Answer): Observable<Answer> => {
-    return this.httpClient.post<Answer>(`${this.baseURL}/Answer/ChangeAnswer` + id, answer}
+    return this.httpClient.post<Answer>(`${this.baseURL}/Answer/ChangeAnswer` + id, answer)
   }
 
   loadAnswers = (): void => {
@@ -60,25 +60,25 @@ export class QuestionService {
   
   getAllQuestions = (): Observable<Question[]> => {
     return this.httpClient.get<Question[]>(
-      this.backendURL + '/Question/GetAllQuestions'
+      this.baseURL + '/Question/GetAllQuestions'
     );
   };
 
   getQuestionById = (questionId: number): Observable<Question> => {
     return this.httpClient.get<Question>(
-      this.backendURL + '/Question/' + questionId
+      this.baseURL + '/Question/' + questionId
     );
   };
 
   getAllChoices = (): Observable<Choice[]> => {
     return this.httpClient.get<Choice[]>(
-      this.backendURL + '/Question/GetAllChoices/'
+      this.baseURL + '/Question/GetAllChoices/'
     );
   };
 
   getChoicesForQuestionId = (questionId: number): Observable<Choice[]> => {
     return this.httpClient.get<Choice[]>(
-      this.backendURL + '/Question/GetChoicesToQuestionId/' + questionId
+      this.baseURL + '/Question/GetChoicesToQuestionId/' + questionId
     );
   };
 }

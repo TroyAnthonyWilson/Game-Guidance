@@ -70,7 +70,7 @@ export class RecommendedGamesComponent implements OnInit {
   setQuestionNumber(number: Number) {
     this.currentQuestionNo === number;
   }
-  openEditPopup(question: Question): void {
+  openEditPopup(): void {
     this.setQuestionNumber(this.currentQuestionNo)
     this.displayEditResponseModal = 'block';
   }
