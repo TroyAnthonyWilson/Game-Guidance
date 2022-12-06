@@ -30,26 +30,8 @@ VALUES
 (49,1,'Xbox One'),
 (7,1,'PlayStation');
 
-(4,4,'Fighting'),
-(5,4,'Shooter'),
-(7,4,'Music'),
-(8,4,'Platform'),
-(9,4,'Puzzle'),
-(10,4,'Racing'),
-(11,4,'Real Time Strategy (RTS)'),
-(12,4,'Role-playing (RPG)'),
-(13,4,'Simulator'),
-(14,4,'Sport'),
-(15,4,'Strategy'),
-(16,4,'Turn-based strategy (TBS)'),
-(24,4,'Tactical'),
-(26,4,'Quiz/Trivia'),
-(25,4,'Hack and slash/Beat em up'),
-(30,4,'Pinball'),
-(31,4,'Adventure'),
-(33,4,'Arcade'),
-(34,4,'Visual Novel'),
-(32,4,'Indie'),
-(35,4,'Card & Board Game'),
-(36,4,'MOBA'),
-(2,4,'Point-and-click'),
+(0,7,'>=50')
+(0,7,'>=60')
+(0,7,'>=70')
+(0,7,'>=80')
+(0,7,'>=90')
