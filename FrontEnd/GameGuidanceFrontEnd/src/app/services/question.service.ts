@@ -41,7 +41,6 @@ export class QuestionService {
 
     this.getChoicesForQuestionId(questionId).subscribe((data) => {
       this.choices = data;
-      console.log(this.choices);
     });
     let names = this.choices.map((person) => person.choiceName);
     return names;
