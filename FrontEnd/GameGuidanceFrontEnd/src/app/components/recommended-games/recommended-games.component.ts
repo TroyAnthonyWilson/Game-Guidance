@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { Choice } from 'src/app/interfaces/choice';
-import { GameService } from 'src/app/services/game.service';
 import { QuestionService } from 'src/app/services/question.service';
 import { Question } from '../../interfaces/question';
 
