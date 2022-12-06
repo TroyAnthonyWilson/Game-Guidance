@@ -21,8 +21,22 @@
 
 <div class="container text-center">
   <div class="row">
-    <div class="col-sm-12 mt-4 mb-4">
+    <div class="col-sm-12 mt-3">
       <h3>Question Responses</h3>
+    </div>
+    <div class="col-sm-12 mb-4">
+      <button
+        class="btn btn-success btn-lg col-3"
+      >
+        Find Games!
+      </button>
+
+      <button
+        class="btn btn-danger btn-lg col-3"
+        (click)="clearAllResponses()"
+      >
+        Clear Responses
+      </button>
     </div>
     <hr />
     <div class="col-sm-12 mb-4">
@@ -38,8 +52,8 @@
         </thead>
         <tbody>
           <tr *ngFor="let question of questionList; index as i">
-            <td *ngIf="question.isAnswered">{{ question.questionNumber }}</td>
-            <td *ngIf="question.isAnswered">{{ question.userQuestion }}</td>
+            <td *ngIf="question.isAnswered">{{ question.id }}</td>
+            <td *ngIf="question.isAnswered">{{ question.questionName }}</td>
             <td *ngIf="question.isAnswered">{{ question.userResponse }}</td>
             <td *ngIf="question.isAnswered">{{ question.isAnswered }}</td>
             <td *ngIf="question.isAnswered"> <button (click)="setQuestionNumber(i + 1)" class="btn btn-outline-info m-0"
@@ -52,6 +66,7 @@
 </div>
 
 <!-- question modal -->
+
 <div
   class="modal"
   tabindex="-1"
@@ -62,14 +77,15 @@
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h4 class="modal-title">{{ question.userQuestion }}</h4>
+        <h4 class="modal-title">{{ question.questionName }}</h4>
       </div>
       <div class="modal-body">
         <p style="color: red">{{modalWarningText}}</p>
-        <p>Get API response for items here in dropdown</p>
+        <!-- <p>Get API response for items here in dropdown</p> -->
         <select class="form-select" [(ngModel)]="selectedResponse">
             <option selected>None</option>
-            <option *ngFor="let o of question.options; index as i" value={{o}}>{{o}}</option>
+            <option>No Preference</option>
+            <option *ngFor="let choice of question.options; index as i" value={{choice}}>{{choice}}</option>
         </select>
       </div>
       <div class="modal-footer">

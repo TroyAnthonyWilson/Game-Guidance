@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { Question } from 'src/app/interfaces/question';
-import { Answer } from 'src/app/interfaces/answer';
+import { Choice } from 'src/app/interfaces/choice';
 import { GameService } from 'src/app/services/game.service';
 import { QuestionService } from 'src/app/services/question.service';
+import { Question } from '../../interfaces/question';
 
 @Component({
   selector: 'app-recommended-games',
@@ -11,6 +11,7 @@ import { QuestionService } from 'src/app/services/question.service';
 })
 export class RecommendedGamesComponent implements OnInit {
   questionList: Question[] = [];
+  choicesList: Choice[] = [];
   currentQuestionNo: number = 1;
   // css variable
   displayStyleQuestionModal = 'none';
@@ -18,16 +19,53 @@ export class RecommendedGamesComponent implements OnInit {
   // selected question answer
   selectedResponse = '';
   modalWarningText = '';
+
+
   constructor(private service: GameService, private questionService: QuestionService) {}
 
   ngOnInit(): void {
     this.populateQuestionList();
-    this.service.gameServicePackage();
-    this.questionService.loadQuestions();
+    this.getOptionsForQuestionId(1);
+  }
+
+  populateQuestionList(): void {
+    this.questionService.getAllQuestions().subscribe((response) => {
+      this.questionList = response;
+
+    });
+  }
+
+  getAllChoices= (): void => {
+    this.questionService.getAllChoices().subscribe((response) => {
+      this.choicesList = response;
+    });
+
+  }
+
+  getOptionsForQuestionId = (questionId: number) : string[] => {
+    let options: string[] = [];
+    this.questionService.getChoicesForQuestionId(questionId).subscribe((data: any) => {
+      this.choicesList = data;
+      this.choicesList.forEach((c)=>{
+        options.push(c.choiceName);
+      });
+
+    });
+    return options;
+  }
+
+  setQuestionOptions(questionArray: Question[]): void{
+    for (let i = 0; i < questionArray.length; i++) {
+      const question = questionArray[i];
+      question.options = this.getOptionsForQuestionId(question.id);
+    }
+
   }
 
   openPopup(): void {
     this.displayStyleQuestionModal = 'block';
+    this.setQuestionOptions(this.questionList);
+
   }
   setQuestionNumber(number: Number) {
     this.currentQuestionNo === number;
@@ -42,7 +80,7 @@ export class RecommendedGamesComponent implements OnInit {
       this.modalWarningText = '';
       //Find index of specific object using findIndex method.
       let objIndex = this.questionList.findIndex(
-        (obj) => obj.questionNumber == this.currentQuestionNo
+        (obj) => obj.id == this.currentQuestionNo
       );
       //Update object's name property.
       this.questionList[objIndex].userResponse = this.selectedResponse;
@@ -57,7 +95,7 @@ export class RecommendedGamesComponent implements OnInit {
   }
   getCurrentQuestion(): Question[] {
     return this.questionList.filter(
-      (q) => q.questionNumber === this.currentQuestionNo
+      (q) => q.id === this.currentQuestionNo
     );
   }
   closePopup(): void {
@@ -68,57 +106,10 @@ export class RecommendedGamesComponent implements OnInit {
     this.displayEditResponseModal = 'none';
   }
 
-  // load dummy data
-  populateQuestionList(): void {
-    let newQuestion1: Question = {
-      questionNumber: 1,
-      userQuestion: 'What system(s)	do you want to play this game on?',
-      userResponse: '',
-      isAnswered: false,
-      options: ['Console', 'PC', 'No Preference']
-    };
-    let newQuestion2: Question = {
-      questionNumber: 2,
-      userQuestion: 'Do you want Single or Multiplayer?',
-      userResponse: '',
-      isAnswered: false,
-      options: this.service.gameModes.map(x => x.name) //*Issue to be addressed: Answers only populate the second time the recommended-games page is opened */
-    };
-    let newQuestion3: Question = {
-      questionNumber: 3,
-      userQuestion: 'What is your age range?',
-      userResponse: '',
-      isAnswered: false,
-      options: ['Less than 10 years old', 'between 10 and 13', 'between 13 and 17', '17 Years old', '18+ years old']
-    };
-    let newQuestion4: Question = {
-      questionNumber: 4,
-      userQuestion: 'What Genre of game are you interested in?',
-      userResponse: '',
-      isAnswered: false,
-      options: this.service.genres.map(x => x.name) //*Issue to be addressed: Answers only populate the second time the recommended-games page is opened */
-    };
-    let newQuestion5: Question = {
-      questionNumber: 5,
-      userQuestion: 'What perspective would you prefer in your next game?',
-      userResponse: '',
-      isAnswered: false,
-      options: this.service.playerPerspectives.map(x => x.name) //*Issue to be addressed: Answers only populate the second time the recommended-games page is opened */
-    };
-    let newQuestion6: Question = {
-      questionNumber: 6,
-      userQuestion: 'Which of these themes appeals to you the most?',
-      userResponse: '',
-      isAnswered: false,
-      options: this.service.themes.map(x => x.name) //*Issue to be addressed: Answers only populate the second time the recommended-games page is opened */
-    };
-    this.questionList = [
-      newQuestion1,
-      newQuestion2,
-      newQuestion3,
-      newQuestion4,
-      newQuestion5,
-      newQuestion6
-    ];
+  clearAllResponses(): void {
+    this.questionList.forEach((q)=>{
+      q.userResponse = '';
+    });
   }
+
 }

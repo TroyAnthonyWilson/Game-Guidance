@@ -1,4 +1,4 @@
-import { HttpClient, HttpHandler, HttpParams } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Search } from '../interfaces/gameInfo';
@@ -20,12 +20,5 @@ export class ApiService {
     return this.http.post<any>(`${this.baseUrl}User/UserData`, {userToken: tokenObj});
   }
 
-  addfavorite(Id: number){
-    return this.http.post<any>(`${this.baseUrl}UserFavorite/addfavorite?gameId=${Id}`, Id);
-  }
 
-  search = (search: any): Observable<Search[]> => {
-    return this.http.get<Search[]>(`${this.baseUrl}UserFavorite/search?search=${search.search}`);
-  }
-  
 }
