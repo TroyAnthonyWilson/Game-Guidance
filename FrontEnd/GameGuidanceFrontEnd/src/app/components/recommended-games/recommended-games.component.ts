@@ -106,4 +106,10 @@ export class RecommendedGamesComponent implements OnInit {
     this.displayEditResponseModal = 'none';
   }
 
+  clearAllResponses(): void {
+    this.questionList.forEach((q)=>{
+      q.userResponse = '';
+    });
+  }
+
 }
