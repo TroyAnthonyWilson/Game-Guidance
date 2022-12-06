@@ -12,6 +12,7 @@ export class QuestionService {
   constructor(private httpClient: HttpClient) { }
   baseURL: string = 'https://localhost:7117/api';
   questions: Question[] = []
+  answers: Answer[] = []
 
   // getQuestion = (): Observable<Question[]> => {
   //   return this.httpClient.get<Question[]>(`${this.baseURL}/PlayerPerspective/GetPlayerPerspectives`)}
@@ -23,6 +24,19 @@ export class QuestionService {
       
   getQuestions = (): Observable<Question[]> => {
     return this.httpClient.get<Question[]>(`${this.baseURL}/Question`)
+  }
+
+  changeAnswer = (id: number, answer: Answer): Observable<Answer> => {
+    return this.httpClient.post<Answer>(`${this.baseURL}/Answer/ChangeAnswer` + id, answer}
+  }
+
+  loadAnswers = (): void => {
+    this.getAnswers().subscribe((data  => this.answers = data));
+    console.log(this.answers)
+  }
+      
+  getAnswers = (): Observable<Answer[]> => {
+    return this.httpClient.get<Answer[]>(`${this.baseURL}/Answer/GetAnswers`)
   }
 
   getAnswerProperty = (question: number, answer: Answer, response: number): void => {
@@ -43,4 +57,4 @@ export class QuestionService {
     }
   }
 
-}
+
