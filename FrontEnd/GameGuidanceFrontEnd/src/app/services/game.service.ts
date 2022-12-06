@@ -59,5 +59,7 @@ export class GameService {
 
   getThemes = (): Observable<PlayerPerspective[]> => {
     return this.httpClient.get<PlayerPerspective[]>(`${this.baseURL}/Theme/GetThemes`)}
+
+  
   }
 

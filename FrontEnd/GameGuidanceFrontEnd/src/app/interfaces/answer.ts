@@ -1,8 +1,9 @@
 //interface to store user answers
 export interface Answer {
-    system?: string;
-    singleOrMulti?: string;
-    age?: number;
-    genre?: string;
+    platform?: number;
+    gameMode?: number;
+    playerPerspective?: number;
+    genre?: number;
+    theme?: number;
   }
   
