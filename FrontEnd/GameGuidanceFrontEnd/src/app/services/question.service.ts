@@ -8,7 +8,6 @@ import { Choice } from 'src/app/interfaces/choice';
   providedIn: 'root',
 })
 export class QuestionService {
-  choices: Choice[] = [];
 
   constructor(private httpClient: HttpClient) {}
   backendURL: string = 'https://localhost:7117/api';
@@ -37,13 +36,6 @@ export class QuestionService {
     );
   };
 
-  returnStringChoicesForQuestion = (questionId: number): string[] => {
 
-    this.getChoicesForQuestionId(questionId).subscribe((data) => {
-      this.choices = data;
-    });
-    let names = this.choices.map((person) => person.choiceName);
-    return names;
-  };
 
 }
