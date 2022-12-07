@@ -87,13 +87,14 @@ export class RecommendedGamesComponent implements OnInit {
   showNextQuestion(): void {
     console.log('showNextQuestion called');   
     if (this.selectedResponse != 'None') {
-      this.currentQuestionNo++;
       // reset modal warning text
       this.modalWarningText = '';
+      
       //Find index of specific object using findIndex method.
       let objIndex = this.questionList.findIndex(
         (obj) => obj.id == this.currentQuestionNo
       );
+
       //Update object's name property.
       this.questionList[objIndex].userResponse = this.selectedResponse;
       this.questionList[objIndex].isAnswered = true;
@@ -101,9 +102,9 @@ export class RecommendedGamesComponent implements OnInit {
       this.selectedResponse = 'None';
       // increment to show next question
       console.log(this.currentQuestionNo);
-      
+      this.currentQuestionNo++;
      
-      this.displayQuestionModal = this.questionList[objIndex];
+      this.displayQuestionModal = this.questionList[this.currentQuestionNo -1];
     } else {
       this.modalWarningText = '*you didnt pick a value*';
     }
