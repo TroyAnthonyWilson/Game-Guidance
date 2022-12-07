@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ValueSansProvider } from '@angular/core';
 import { Answer } from 'src/app/interfaces/answer';
 import { Choice } from 'src/app/interfaces/choice';
 import { QuestionService } from 'src/app/services/question.service';
 import { Question } from '../../interfaces/question';
+import { AnswerService } from 'src/app/services/answer.service';
 
 @Component({
   selector: 'app-recommended-games',
@@ -23,8 +24,10 @@ export class RecommendedGamesComponent implements OnInit {
   selectedResponse = '';
   modalWarningText = '';
 
+  answers!: Answer;
 
-  constructor(private questionService: QuestionService) {}
+
+  constructor(private questionService: QuestionService, private answerService: AnswerService) {}
 
   ngOnInit(): void {
     this.populateQuestionList();
@@ -40,12 +43,12 @@ export class RecommendedGamesComponent implements OnInit {
 
   // getAllChoices= (): void => {
   //   this.questionService.getAllChoices().subscribe((response) => {
-  //     this.choicesList = response;     
+  //     this.choicesList = response;
   //   });
   // }
 
   getOptionsForQuestionId = (questionId: number) : Choice[] => {
-    
+
     let options: Choice[] = [];
     this.questionService.getChoicesForQuestionId(questionId).subscribe((data: any) => {
       this.choicesList = data;
@@ -60,37 +63,37 @@ export class RecommendedGamesComponent implements OnInit {
   setQuestionOptions(questionArray: Question[]): void{
     for (let i = 0; i < questionArray.length; i++) {
       const question = questionArray[i];
-      console.log(question.id);      
+      // console.log(question.id);
       question.options = this.getOptionsForQuestionId(question.id);
     }
   }
 
   openPopup(): void {
-    console.log('openPopup called');   
-    //this.getAllChoices(); 
+    console.log('openPopup called');
+    //this.getAllChoices();
     this.displayStyleQuestionModal = 'block';
     this.setQuestionOptions(this.questionList);
   }
 
-  
+
   setQuestionNumber(number: Number) {
     this.currentQuestionNo === number;
-    console.log(this.currentQuestionNo); 
+    // console.log(this.currentQuestionNo);
   }
 
   openEditPopup(): void {
-    console.log('openEditPopup called');  
+    console.log('openEditPopup called');
     //this.setQuestionNumber(this.currentQuestionNo)
     this.displayEditResponseModal = 'block';
   }
 
 
   showNextQuestion(): void {
-    console.log('showNextQuestion called');   
+    console.log('showNextQuestion called');
     if (this.selectedResponse != 'None') {
       // reset modal warning text
       this.modalWarningText = '';
-      
+
       //Find index of specific object using findIndex method.
       let objIndex = this.questionList.findIndex(
         (obj) => obj.id == this.currentQuestionNo
@@ -102,40 +105,23 @@ export class RecommendedGamesComponent implements OnInit {
         this.selectedResponse = 'None';
         // check if question has next index
       if (this.questionList[objIndex + 1] != undefined) {
-        console.log('next question exists');
+        // console.log('next question exists');
         this.currentQuestionNo++;
-        this.displayQuestionModal = this.questionList[this.currentQuestionNo -1]; 
+        this.displayQuestionModal = this.questionList[this.currentQuestionNo -1];
       } else {
-        console.log('next question does not exist');
+        // console.log('next question does not exist');
         this.closePopup();
       }
     } else {
       this.modalWarningText = '*you didnt pick a value*';
     }
   }
-  
-// getNextQuestion(): Question[] {
-//   console.log('getNextQuestion called'); 
-//   return this.questionList.filter(
-//     (q) => q.id === this.currentQuestionNo
-//   );
-// }
 
-  // getCurrentQuestion(): Question[] {
-  //   console.log('getCurrentQuestion called');   
-  //    for (let i = 0; i < this.choicesList.length; i++) {
-  //       if(this.choicesList[i].questionId == this.currentQuestionNo)
-  //       {
-  //         console.log(this.choicesList[i]);       
-  //       }              
-  //    }  
-  //   return this.questionList.filter(    
-  //     (q) => q.id === this.currentQuestionNo
-  //   );
-  // }
+
+
 
   closePopup(): void {
-    console.log('closePopup called');
+    // console.log('closePopup called');
     this.displayStyleQuestionModal = 'none';
   }
 
@@ -152,17 +138,17 @@ export class RecommendedGamesComponent implements OnInit {
     });
   }
 
-  awnsers!: Answer;
+
 
   //find games based on user responses
   findGames(): void {
     console.log('findGames called');
     for (let i = 0; i < this.questionList.length; i++) {
       const question = this.questionList[i];
-      console.log(question.userResponse, question.id);
+      // console.log(question.userResponse, question.id);
     }
 
-    this.awnsers = {
+    this.answers = {
       platform: Number(this.questionList[0].userResponse),
       gameMode: Number(this.questionList[1].userResponse),
       playerPerspective: Number(this.questionList[2].userResponse),
@@ -170,8 +156,8 @@ export class RecommendedGamesComponent implements OnInit {
       theme: Number(this.questionList[4].userResponse),
       //rating: Number(this.questionList[5].userResponse),
     };
+    this.answerService.getGameResult(this.answers);
+    // console.log(this.answers);
 
-    console.log(this.awnsers);
-    
   }
 }
