@@ -30,6 +30,7 @@ export class RecommendedGamesComponent implements OnInit {
   favorites: UserFavorite[] = [];
   favoritesIds: Number[] = [];
   answers!: Answer;
+  isAnswered: Boolean = false;
 
 
   constructor(private questionService: QuestionService, private answerService: AnswerService, private favorite: FavoriteService) {}
@@ -104,8 +105,10 @@ export class RecommendedGamesComponent implements OnInit {
         (obj) => obj.id == this.currentQuestionNo
       );
        //Update object's name property.
+       if(this.selectedResponse != 'No Preference'){
         this.questionList[objIndex].userResponse = this.selectedResponse;
         this.questionList[objIndex].isAnswered = true;
+       }       
         // reset response to all
         this.selectedResponse = 'None';
         // check if question has next index
@@ -119,6 +122,18 @@ export class RecommendedGamesComponent implements OnInit {
       }
     } else {
       this.modalWarningText = '*you didnt pick a value*';
+    }
+
+
+    // if any questions are answered call the find games function
+    this.questionList.forEach((q)=>{
+      if(q.isAnswered === true){
+        this.isAnswered = true;
+      }
+    });
+
+    if(this.isAnswered){
+      this.findGames();
     }
   }
 
