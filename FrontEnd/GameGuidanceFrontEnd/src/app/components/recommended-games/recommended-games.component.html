@@ -71,13 +71,13 @@
   class="modal"
   tabindex="-1"
   role="dialog"
-  *ngFor="let question of getNextQuestion()"
+  ngModel="displayQuestionModal"
   [ngStyle]="{ display: displayStyleQuestionModal }"
 >
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h4 class="modal-title">{{ question.questionName }} {{question.id}}</h4>
+        <h4 class="modal-title">{{ displayQuestionModal.questionName }} {{displayQuestionModal.id}}</h4>
       </div>
       <div class="modal-body">
         <p style="color: red">{{modalWarningText}}</p>
@@ -88,7 +88,8 @@
         <select class="form-select" [(ngModel)]="selectedResponse">
             <option selected>None</option>
             <option>No Preference</option>
-            <option *ngFor="let choice of question.options" value={{choice.id}}>{{choice.choiceName}}</option>
+            
+            <option *ngFor="let choice of displayQuestionModal.options" value={{choice.id}}>{{choice.choiceName}}</option>
         </select>
       </div>
       <div class="modal-footer">

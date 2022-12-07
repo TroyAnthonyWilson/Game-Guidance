@@ -10,8 +10,11 @@ import { Question } from '../../interfaces/question';
 })
 export class RecommendedGamesComponent implements OnInit {
   questionList: Question[] = [];
+  displayQuestionModal!: Question;
+
+
   choicesList: Choice[] = [];
-  currentQuestionNo: number = 0;
+  currentQuestionNo: number = 1;
   // css variable
   displayStyleQuestionModal = 'none';
   displayEditResponseModal = 'none';
@@ -30,6 +33,7 @@ export class RecommendedGamesComponent implements OnInit {
     this.questionService.getAllQuestions().subscribe((response) => {
       this.questionList = response;
       this.currentQuestionNo = this.questionList[0].id;
+      this.displayQuestionModal = this.questionList[0];
     });
   }
 
@@ -37,7 +41,6 @@ export class RecommendedGamesComponent implements OnInit {
   //   this.questionService.getAllChoices().subscribe((response) => {
   //     this.choicesList = response;     
   //   });
-
   // }
 
   getOptionsForQuestionId = (questionId: number) : Choice[] => {
@@ -49,7 +52,6 @@ export class RecommendedGamesComponent implements OnInit {
       this.choicesList.forEach((c)=>{
         options.push(c);
       });
-
     });
     return options;
   }
@@ -57,9 +59,9 @@ export class RecommendedGamesComponent implements OnInit {
   setQuestionOptions(questionArray: Question[]): void{
     for (let i = 0; i < questionArray.length; i++) {
       const question = questionArray[i];
+      console.log(question.id);      
       question.options = this.getOptionsForQuestionId(question.id);
     }
-
   }
 
   openPopup(): void {
@@ -75,7 +77,6 @@ export class RecommendedGamesComponent implements OnInit {
     console.log(this.currentQuestionNo); 
   }
 
-
   openEditPopup(): void {
     console.log('openEditPopup called');  
     //this.setQuestionNumber(this.currentQuestionNo)
@@ -86,6 +87,7 @@ export class RecommendedGamesComponent implements OnInit {
   showNextQuestion(): void {
     console.log('showNextQuestion called');   
     if (this.selectedResponse != 'None') {
+      this.currentQuestionNo++;
       // reset modal warning text
       this.modalWarningText = '';
       //Find index of specific object using findIndex method.
@@ -98,13 +100,15 @@ export class RecommendedGamesComponent implements OnInit {
       // reset response to all
       this.selectedResponse = 'None';
       // increment to show next question
-      this.currentQuestionNo++;
+      console.log(this.currentQuestionNo);
+      
+     
+      this.displayQuestionModal = this.questionList[objIndex];
     } else {
       this.modalWarningText = '*you didnt pick a value*';
     }
   }
   
-
 getNextQuestion(): Question[] {
   console.log('getNextQuestion called'); 
   return this.questionList.filter(
