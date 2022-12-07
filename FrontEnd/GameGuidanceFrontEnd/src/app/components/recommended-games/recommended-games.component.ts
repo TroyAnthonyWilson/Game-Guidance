@@ -4,6 +4,9 @@ import { Choice } from 'src/app/interfaces/choice';
 import { QuestionService } from 'src/app/services/question.service';
 import { Question } from '../../interfaces/question';
 import { AnswerService } from 'src/app/services/answer.service';
+import { Search } from 'src/app/interfaces/gameInfo';
+import { FavoriteService } from 'src/app/services/favorite.service';
+import { UserFavorite } from 'src/app/interfaces/user-favorite';
 
 @Component({
   selector: 'app-recommended-games',
@@ -23,11 +26,13 @@ export class RecommendedGamesComponent implements OnInit {
   // selected question answer
   selectedResponse = '';
   modalWarningText = '';
-
+  search: Search[] = [];
+  favorites: UserFavorite[] = [];
+  favoritesIds: Number[] = [];
   answers!: Answer;
 
 
-  constructor(private questionService: QuestionService, private answerService: AnswerService) {}
+  constructor(private questionService: QuestionService, private answerService: AnswerService, private favorite: FavoriteService) {}
 
   ngOnInit(): void {
     this.populateQuestionList();
@@ -157,10 +162,50 @@ export class RecommendedGamesComponent implements OnInit {
       //rating: Number(this.questionList[5].userResponse),
     };
     
-    this.answerService.getGameResult(this.answers).subscribe((response) => {
+
+
+    this.answerService.getGameResult(this.answers).subscribe((response: Search[]) => {
       console.log(response);
+      this.search = response;
+      this.getFavorites();
     });
     // console.log(this.answers);
 
+  }
+
+  getFavorites = () : void => {
+    this.favorite.getFavorites().subscribe((data: any) => {
+      this.favorites = data;
+      this.getFavoritesIds();
+    });
+  }
+
+  getFavoritesIds = () => {
+    let ids: Number[] = [];
+    this.favorites.forEach((fav) => {
+      ids.push(fav.gameId);
+    });
+    //console.log("ids: " + ids);
+    
+    this.favoritesIds = ids;
+    //console.log("favoritesIds: " + this.favoritesIds);   
+  };
+
+  // add to favorites
+addToFavorites(id: number){
+  console.log("Add to favorites: " + id);
+  this.favorite.addfavorite(id).subscribe((data: any) => {
+    //console.log(data);
+    this.getFavorites();
+  }); 
+  };
+
+  // remove from favorites
+removeFromFavorites(id: number){
+  console.log("Remove from favorites: " + id);
+  this.favorite.removeFavorite(id).subscribe((data: any) => {
+    //console.log(data);
+    this.getFavorites();
+  }); 
   }
 }
