@@ -126,13 +126,15 @@ export class RecommendedGamesComponent implements OnInit {
 
 
     // if any questions are answered call the find games function
-    this.questionList.forEach((q)=>{
-      if(q.isAnswered === true){
-        this.isAnswered = true;
-      }
-    });
-
-    if(this.isAnswered){
+    if(!this.isAnswered){
+      this.questionList.forEach((q)=>{
+        if(q.isAnswered === true){
+          this.isAnswered = true;
+        }
+      });
+    }
+    if(this.isAnswered)
+    {
       this.findGames();
     }
   }
