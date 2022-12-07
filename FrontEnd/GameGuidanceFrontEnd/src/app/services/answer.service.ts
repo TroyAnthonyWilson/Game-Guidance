@@ -8,7 +8,7 @@ import { Answer } from '../interfaces/answer';
 export class AnswerService {
 
   constructor(private http: HttpClient) { }
-  baseUrl: string = 'https://localhost:7117/api/Answer';
+  baseUrl: string = 'https://localhost:7117/api/Answer/FinalPost';
 
   getGameResult(answerObj : Answer){
     return this.http.post<Answer>(`${this.baseUrl}`, answerObj);
