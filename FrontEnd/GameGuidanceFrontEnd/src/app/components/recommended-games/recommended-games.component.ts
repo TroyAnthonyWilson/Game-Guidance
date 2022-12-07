@@ -33,18 +33,18 @@ export class RecommendedGamesComponent implements OnInit {
     });
   }
 
-  getAllChoices= (): void => {
-    this.questionService.getAllChoices().subscribe((response) => {
-      this.choicesList = response;
-    });
+  // getAllChoices= (): void => {
+  //   this.questionService.getAllChoices().subscribe((response) => {
+  //     this.choicesList = response;     
+  //   });
 
-  }
+  // }
 
   getOptionsForQuestionId = (questionId: number) : Choice[] => {
+    
     let options: Choice[] = [];
     this.questionService.getChoicesForQuestionId(questionId).subscribe((data: any) => {
       this.choicesList = data;
-      console.log(this.choicesList);     
 
       this.choicesList.forEach((c)=>{
         options.push(c);
@@ -63,18 +63,28 @@ export class RecommendedGamesComponent implements OnInit {
   }
 
   openPopup(): void {
+    console.log('openPopup called');   
+    //this.getAllChoices(); 
     this.displayStyleQuestionModal = 'block';
     this.setQuestionOptions(this.questionList);
-
   }
+
+  
   setQuestionNumber(number: Number) {
     this.currentQuestionNo === number;
+    console.log(this.currentQuestionNo); 
   }
+
+
   openEditPopup(): void {
-    this.setQuestionNumber(this.currentQuestionNo)
+    console.log('openEditPopup called');  
+    //this.setQuestionNumber(this.currentQuestionNo)
     this.displayEditResponseModal = 'block';
   }
+
+
   showNextQuestion(): void {
+    console.log('showNextQuestion called');   
     if (this.selectedResponse != 'None') {
       // reset modal warning text
       this.modalWarningText = '';
@@ -93,20 +103,41 @@ export class RecommendedGamesComponent implements OnInit {
       this.modalWarningText = '*you didnt pick a value*';
     }
   }
-  getCurrentQuestion(): Question[] {
-    return this.questionList.filter(
-      (q) => q.id === this.currentQuestionNo
-    );
-  }
+  
+
+getNextQuestion(): Question[] {
+  console.log('getNextQuestion called'); 
+  return this.questionList.filter(
+    (q) => q.id === this.currentQuestionNo
+  );
+}
+
+  // getCurrentQuestion(): Question[] {
+  //   console.log('getCurrentQuestion called');   
+  //    for (let i = 0; i < this.choicesList.length; i++) {
+  //       if(this.choicesList[i].questionId == this.currentQuestionNo)
+  //       {
+  //         console.log(this.choicesList[i]);       
+  //       }              
+  //    }  
+  //   return this.questionList.filter(    
+  //     (q) => q.id === this.currentQuestionNo
+  //   );
+  // }
+
   closePopup(): void {
+    console.log('closePopup called');
     this.displayStyleQuestionModal = 'none';
   }
+
   saveAndCloseEditResponse(thisQuestion: Question): void {
+    console.log('saveAndCloseEditResponse called');
     thisQuestion.userResponse = this.selectedResponse;
     this.displayEditResponseModal = 'none';
   }
 
   clearAllResponses(): void {
+    console.log('clearAllResponses called');
     this.questionList.forEach((q)=>{
       q.userResponse = '';
     });

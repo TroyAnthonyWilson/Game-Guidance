@@ -45,7 +45,7 @@
           <tr>
             <th scope="col">Question No</th>
             <th scope="col">Question</th>
-            <th scope="col">Response</th>
+            <th scope="col">Id</th>
             <th scope="col">User has answered</th>
             <th scope="col"></th>
           </tr>
@@ -71,21 +71,24 @@
   class="modal"
   tabindex="-1"
   role="dialog"
-  *ngFor="let question of getCurrentQuestion()"
+  *ngFor="let question of getNextQuestion()"
   [ngStyle]="{ display: displayStyleQuestionModal }"
 >
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h4 class="modal-title">{{ question.questionName }}</h4>
+        <h4 class="modal-title">{{ question.questionName }} {{question.id}}</h4>
       </div>
       <div class="modal-body">
         <p style="color: red">{{modalWarningText}}</p>
+
+
+
         <!-- <p>Get API response for items here in dropdown</p> -->
         <select class="form-select" [(ngModel)]="selectedResponse">
             <option selected>None</option>
             <option>No Preference</option>
-            <option *ngFor="let choice of choicesList; index as i" value={{choice.id}}>{{choice.choiceName}}</option>
+            <option *ngFor="let choice of question.options" value={{choice.id}}>{{choice.choiceName}}</option>
         </select>
       </div>
       <div class="modal-footer">
