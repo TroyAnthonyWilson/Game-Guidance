@@ -85,7 +85,7 @@
             <option selected>None</option>
             <option>No Preference</option>
             
-            <option *ngFor="let choice of displayQuestionModal.options" value={{choice.id}}>{{choice.choiceName}}</option>
+            <option *ngFor="let choice of displayQuestionModal.options" value={{choice.apiChoiceId}}>{{choice.choiceName}}</option>
         </select>
       </div>
       <div class="modal-footer">

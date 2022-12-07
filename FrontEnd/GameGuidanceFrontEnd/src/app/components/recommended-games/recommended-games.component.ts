@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Answer } from 'src/app/interfaces/answer';
 import { Choice } from 'src/app/interfaces/choice';
 import { QuestionService } from 'src/app/services/question.service';
 import { Question } from '../../interfaces/question';
@@ -99,9 +100,6 @@ export class RecommendedGamesComponent implements OnInit {
         this.questionList[objIndex].isAnswered = true;
         // reset response to all
         this.selectedResponse = 'None';
-        // increment to show next question
-        console.log(this.currentQuestionNo);
-
         // check if question has next index
       if (this.questionList[objIndex + 1] != undefined) {
         console.log('next question exists');
@@ -111,20 +109,17 @@ export class RecommendedGamesComponent implements OnInit {
         console.log('next question does not exist');
         this.closePopup();
       }
-      
-
-
     } else {
       this.modalWarningText = '*you didnt pick a value*';
     }
   }
   
-getNextQuestion(): Question[] {
-  console.log('getNextQuestion called'); 
-  return this.questionList.filter(
-    (q) => q.id === this.currentQuestionNo
-  );
-}
+// getNextQuestion(): Question[] {
+//   console.log('getNextQuestion called'); 
+//   return this.questionList.filter(
+//     (q) => q.id === this.currentQuestionNo
+//   );
+// }
 
   // getCurrentQuestion(): Question[] {
   //   console.log('getCurrentQuestion called');   
@@ -144,11 +139,11 @@ getNextQuestion(): Question[] {
     this.displayStyleQuestionModal = 'none';
   }
 
-  saveAndCloseEditResponse(thisQuestion: Question): void {
-    console.log('saveAndCloseEditResponse called');
-    thisQuestion.userResponse = this.selectedResponse;
-    this.displayEditResponseModal = 'none';
-  }
+  // saveAndCloseEditResponse(thisQuestion: Question): void {
+  //   console.log('saveAndCloseEditResponse called');
+  //   thisQuestion.userResponse = this.selectedResponse;
+  //   this.displayEditResponseModal = 'none';
+  // }
 
   clearAllResponses(): void {
     console.log('clearAllResponses called');
@@ -157,12 +152,26 @@ getNextQuestion(): Question[] {
     });
   }
 
+  awnsers!: Answer;
+
   //find games based on user responses
   findGames(): void {
     console.log('findGames called');
-    this.questionList.forEach((q)=>{
-      console.log(q.userResponse, q.id);
-    });
-  }
+    for (let i = 0; i < this.questionList.length; i++) {
+      const question = this.questionList[i];
+      console.log(question.userResponse, question.id);
+    }
 
+    this.awnsers = {
+      platform: Number(this.questionList[0].userResponse),
+      gameMode: Number(this.questionList[1].userResponse),
+      playerPerspective: Number(this.questionList[2].userResponse),
+      genre: Number(this.questionList[3].userResponse),
+      theme: Number(this.questionList[4].userResponse),
+      //rating: Number(this.questionList[5].userResponse),
+    };
+
+    console.log(this.awnsers);
+    
+  }
 }
