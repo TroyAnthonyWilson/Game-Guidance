@@ -156,7 +156,10 @@ export class RecommendedGamesComponent implements OnInit {
       theme: Number(this.questionList[4].userResponse),
       //rating: Number(this.questionList[5].userResponse),
     };
-    this.answerService.getGameResult(this.answers);
+    
+    this.answerService.getGameResult(this.answers).subscribe((response) => {
+      console.log(response);
+    });
     // console.log(this.answers);
 
   }
