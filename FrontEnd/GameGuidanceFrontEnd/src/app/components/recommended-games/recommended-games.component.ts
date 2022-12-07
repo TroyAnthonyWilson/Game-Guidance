@@ -94,17 +94,26 @@ export class RecommendedGamesComponent implements OnInit {
       let objIndex = this.questionList.findIndex(
         (obj) => obj.id == this.currentQuestionNo
       );
+       //Update object's name property.
+        this.questionList[objIndex].userResponse = this.selectedResponse;
+        this.questionList[objIndex].isAnswered = true;
+        // reset response to all
+        this.selectedResponse = 'None';
+        // increment to show next question
+        console.log(this.currentQuestionNo);
 
-      //Update object's name property.
-      this.questionList[objIndex].userResponse = this.selectedResponse;
-      this.questionList[objIndex].isAnswered = true;
-      // reset response to all
-      this.selectedResponse = 'None';
-      // increment to show next question
-      console.log(this.currentQuestionNo);
-      this.currentQuestionNo++;
-     
-      this.displayQuestionModal = this.questionList[this.currentQuestionNo -1];
+        // check if question has next index
+      if (this.questionList[objIndex + 1] != undefined) {
+        console.log('next question exists');
+        this.currentQuestionNo++;
+        this.displayQuestionModal = this.questionList[this.currentQuestionNo -1]; 
+      } else {
+        console.log('next question does not exist');
+        this.closePopup();
+      }
+      
+
+
     } else {
       this.modalWarningText = '*you didnt pick a value*';
     }
@@ -145,6 +154,14 @@ getNextQuestion(): Question[] {
     console.log('clearAllResponses called');
     this.questionList.forEach((q)=>{
       q.userResponse = '';
+    });
+  }
+
+  //find games based on user responses
+  findGames(): void {
+    console.log('findGames called');
+    this.questionList.forEach((q)=>{
+      console.log(q.userResponse, q.id);
     });
   }
 
