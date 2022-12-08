@@ -166,7 +166,7 @@ export class RecommendedGamesComponent implements OnInit {
   findGames(): void {
     console.log('findGames called');
     for (let i = 0; i < this.questionList.length; i++) {
-      const question = this.questionList[i];
+      //const question = this.questionList[i];
       // console.log(question.userResponse, question.id);
     }
 
