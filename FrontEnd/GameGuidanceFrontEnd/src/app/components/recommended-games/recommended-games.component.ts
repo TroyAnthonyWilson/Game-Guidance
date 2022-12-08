@@ -1,7 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ValueSansProvider } from '@angular/core';
+import { Answer } from 'src/app/interfaces/answer';
 import { Choice } from 'src/app/interfaces/choice';
 import { QuestionService } from 'src/app/services/question.service';
 import { Question } from '../../interfaces/question';
+import { AnswerService } from 'src/app/services/answer.service';
+import { Search } from 'src/app/interfaces/gameInfo';
+import { FavoriteService } from 'src/app/services/favorite.service';
+import { UserFavorite } from 'src/app/interfaces/user-favorite';
 
 @Component({
   selector: 'app-recommended-games',
@@ -10,17 +15,25 @@ import { Question } from '../../interfaces/question';
 })
 export class RecommendedGamesComponent implements OnInit {
   questionList: Question[] = [];
+  displayQuestionModal!: Question;
+
+
   choicesList: Choice[] = [];
-  currentQuestionNo: number = 0;
+  currentQuestionNo: number = 1;
   // css variable
   displayStyleQuestionModal = 'none';
   displayEditResponseModal = 'none';
   // selected question answer
   selectedResponse = '';
   modalWarningText = '';
+  search: Search[] = [];
+  favorites: UserFavorite[] = [];
+  favoritesIds: Number[] = [];
+  answers!: Answer;
+  isAnswered: Boolean = false;
 
 
-  constructor(private questionService: QuestionService) {}
+  constructor(private questionService: QuestionService, private answerService: AnswerService, private favorite: FavoriteService) {}
 
   ngOnInit(): void {
     this.populateQuestionList();
@@ -30,26 +43,25 @@ export class RecommendedGamesComponent implements OnInit {
     this.questionService.getAllQuestions().subscribe((response) => {
       this.questionList = response;
       this.currentQuestionNo = this.questionList[0].id;
+      this.displayQuestionModal = this.questionList[0];
     });
   }
 
-  getAllChoices= (): void => {
-    this.questionService.getAllChoices().subscribe((response) => {
-      this.choicesList = response;
-    });
+  // getAllChoices= (): void => {
+  //   this.questionService.getAllChoices().subscribe((response) => {
+  //     this.choicesList = response;
+  //   });
+  // }
 
-  }
+  getOptionsForQuestionId = (questionId: number) : Choice[] => {
 
-  getOptionsForQuestionId = (questionId: number) : string[] => {
-    let options: string[] = [];
+    let options: Choice[] = [];
     this.questionService.getChoicesForQuestionId(questionId).subscribe((data: any) => {
       this.choicesList = data;
-      console.log(this.choicesList);     
 
       this.choicesList.forEach((c)=>{
-        options.push(c.choiceName);
+        options.push(c);
       });
-
     });
     return options;
   }
@@ -57,59 +69,163 @@ export class RecommendedGamesComponent implements OnInit {
   setQuestionOptions(questionArray: Question[]): void{
     for (let i = 0; i < questionArray.length; i++) {
       const question = questionArray[i];
+      // console.log(question.id);
       question.options = this.getOptionsForQuestionId(question.id);
     }
-
   }
 
   openPopup(): void {
+    console.log('openPopup called');
+    //this.getAllChoices();
     this.displayStyleQuestionModal = 'block';
     this.setQuestionOptions(this.questionList);
-
   }
+
+
   setQuestionNumber(number: Number) {
     this.currentQuestionNo === number;
+    // console.log(this.currentQuestionNo);
   }
-  openEditPopup(question: Question): void {
-    this.setQuestionNumber(this.currentQuestionNo)
+
+  openEditPopup(): void {
+    console.log('openEditPopup called');
+    //this.setQuestionNumber(this.currentQuestionNo)
     this.displayEditResponseModal = 'block';
   }
+
+
   showNextQuestion(): void {
+    console.log('showNextQuestion called');
     if (this.selectedResponse != 'None') {
       // reset modal warning text
       this.modalWarningText = '';
+
       //Find index of specific object using findIndex method.
       let objIndex = this.questionList.findIndex(
         (obj) => obj.id == this.currentQuestionNo
       );
-      //Update object's name property.
-      this.questionList[objIndex].userResponse = this.selectedResponse;
-      this.questionList[objIndex].isAnswered = true;
-      // reset response to all
-      this.selectedResponse = 'None';
-      // increment to show next question
-      this.currentQuestionNo++;
+       //Update object's name property.
+       if(this.selectedResponse != 'No Preference'){
+        this.questionList[objIndex].userResponse = this.selectedResponse;
+        this.questionList[objIndex].isAnswered = true;
+       }       
+        // reset response to all
+        this.selectedResponse = 'None';
+        // check if question has next index
+      if (this.questionList[objIndex + 1] != undefined) {
+        // console.log('next question exists');
+        this.currentQuestionNo++;
+        this.displayQuestionModal = this.questionList[this.currentQuestionNo -1];
+      } else {
+        // console.log('next question does not exist');
+        this.closePopup();
+      }
     } else {
       this.modalWarningText = '*you didnt pick a value*';
     }
-  }
-  getCurrentQuestion(): Question[] {
-    return this.questionList.filter(
-      (q) => q.id === this.currentQuestionNo
-    );
-  }
-  closePopup(): void {
-    this.displayStyleQuestionModal = 'none';
-  }
-  saveAndCloseEditResponse(thisQuestion: Question): void {
-    thisQuestion.userResponse = this.selectedResponse;
-    this.displayEditResponseModal = 'none';
+
+
+    // if any questions are answered call the find games function
+    if(!this.isAnswered){
+      this.questionList.forEach((q)=>{
+        if(q.isAnswered === true){
+          this.isAnswered = true;
+        }
+      });
+    }
+    if(this.isAnswered)
+    {
+      this.findGames();
+    }
   }
 
+
+
+
+  closePopup(): void {
+    // console.log('closePopup called');
+    this.displayStyleQuestionModal = 'none';
+  }
+
+  // saveAndCloseEditResponse(thisQuestion: Question): void {
+  //   console.log('saveAndCloseEditResponse called');
+  //   thisQuestion.userResponse = this.selectedResponse;
+  //   this.displayEditResponseModal = 'none';
+  // }
+
   clearAllResponses(): void {
-    this.questionList.forEach((q)=>{
-      q.userResponse = '';
+    console.log('clearAllResponses called');
+    this.questionList =[];
+    this.search = [];
+    this.populateQuestionList();
+  }
+
+
+
+  //find games based on user responses
+  findGames(): void {
+    console.log('findGames called');
+    for (let i = 0; i < this.questionList.length; i++) {
+      const question = this.questionList[i];
+      // console.log(question.userResponse, question.id);
+    }
+
+    this.answers = {
+      platform: Number(this.questionList[0].userResponse),
+      gameMode: Number(this.questionList[1].userResponse),
+      playerPerspective: Number(this.questionList[2].userResponse),
+      genre: Number(this.questionList[3].userResponse),
+      theme: Number(this.questionList[4].userResponse),
+      //rating: Number(this.questionList[5].userResponse),
+    };
+    
+
+
+    this.answerService.getGameResult(this.answers).subscribe((response: Search[]) => {
+      console.log(response);
+      this.search = response;
+      this.getFavorites();
+      if(this.search.length < 4){
+        this.closePopup();
+      }
+    });
+    // console.log(this.answers);
+
+  }
+
+  getFavorites = () : void => {
+    this.favorite.getFavorites().subscribe((data: any) => {
+      this.favorites = data;
+      this.getFavoritesIds();
     });
   }
 
+  getFavoritesIds = () => {
+    let ids: Number[] = [];
+    this.favorites.forEach((fav) => {
+      ids.push(fav.gameId);
+    });
+    //console.log("ids: " + ids);
+    
+    this.favoritesIds = ids;
+    //console.log("favoritesIds: " + this.favoritesIds);   
+  };
+
+  // add to favorites
+addToFavorites(id: number){
+  console.log("Add to favorites: " + id);
+  this.favorite.addfavorite(id).subscribe((data: any) => {
+    //console.log(data);
+    this.getFavorites();
+  }); 
+  };
+
+  // remove from favorites
+removeFromFavorites(id: number){
+  console.log("Remove from favorites: " + id);
+  this.favorite.removeFavorite(id).subscribe((data: any) => {
+    //console.log(data);
+    this.getFavorites();
+  }); 
+  }
 }
