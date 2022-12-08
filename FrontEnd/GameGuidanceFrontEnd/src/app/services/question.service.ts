@@ -18,45 +18,45 @@ export class QuestionService {
   // getQuestion = (): Observable<Question[]> => {
   //   return this.httpClient.get<Question[]>(`${this.baseURL}/PlayerPerspective/GetPlayerPerspectives`)}
 
-  loadQuestions = (): void => {
-    this.getQuestions().subscribe((data  => this.questions = data));
-    console.log(this.questions)
-  }
+  // loadQuestions = (): void => {
+  //   this.getQuestions().subscribe((data  => this.questions = data));
+  //   console.log(this.questions)
+  // }
       
-  getQuestions = (): Observable<Question[]> => {
-    return this.httpClient.get<Question[]>(`${this.baseURL}/Question`)
-  }
+  // getQuestions = (): Observable<Question[]> => {
+  //   return this.httpClient.get<Question[]>(`${this.baseURL}/Question`)
+  // }
 
-  changeAnswer = (id: number, answer: Answer): Observable<Answer> => {
-    return this.httpClient.post<Answer>(`${this.baseURL}/Answer/ChangeAnswer` + id, answer)
-  }
+  // changeAnswer = (id: number, answer: Answer): Observable<Answer> => {
+  //   return this.httpClient.post<Answer>(`${this.baseURL}/Answer/ChangeAnswer` + id, answer)
+  // }
 
-  loadAnswers = (): void => {
-    this.getAnswers().subscribe((data  => this.answers = data));
-    console.log(this.answers)
-  }
+  // loadAnswers = (): void => {
+  //   this.getAnswers().subscribe((data  => this.answers = data));
+  //   console.log(this.answers)
+  // }
       
-  getAnswers = (): Observable<Answer[]> => {
-    return this.httpClient.get<Answer[]>(`${this.baseURL}/Answer/GetAnswers`)
-  }
+  // getAnswers = (): Observable<Answer[]> => {
+  //   return this.httpClient.get<Answer[]>(`${this.baseURL}/Answer/GetAnswers`)
+  // }
 
-  getAnswerProperty = (question: number, answer: Answer, response: number): void => {
-    if (question === 1) {
-      answer.platform === response;
-    }
-    if (question === 2) {
-      answer.gameMode === response;
-    }
-    if (question === 3) {
-      answer.genre === response;
-    }
-    if (question === 4) {
-      answer.playerPerspective === response;
-    }
-    if (question === 5) {
-      answer.theme === response;
-    }
-  }
+  // getAnswerProperty = (question: number, answer: Answer, response: number): void => {
+  //   if (question === 1) {
+  //     answer.platform === response;
+  //   }
+  //   if (question === 2) {
+  //     answer.gameMode === response;
+  //   }
+  //   if (question === 3) {
+  //     answer.genre === response;
+  //   }
+  //   if (question === 4) {
+  //     answer.playerPerspective === response;
+  //   }
+  //   if (question === 5) {
+  //     answer.theme === response;
+  //   }
+  // }
   
   getAllQuestions = (): Observable<Question[]> => {
     return this.httpClient.get<Question[]>(
@@ -64,17 +64,17 @@ export class QuestionService {
     );
   };
 
-  getQuestionById = (questionId: number): Observable<Question> => {
-    return this.httpClient.get<Question>(
-      this.baseURL + '/Question/' + questionId
-    );
-  };
+  // getQuestionById = (questionId: number): Observable<Question> => {
+  //   return this.httpClient.get<Question>(
+  //     this.baseURL + '/Question/' + questionId
+  //   );
+  // };
 
-  getAllChoices = (): Observable<Choice[]> => {
-    return this.httpClient.get<Choice[]>(
-      this.baseURL + '/Question/GetAllChoices/'
-    );
-  };
+  // getAllChoices = (): Observable<Choice[]> => {
+  //   return this.httpClient.get<Choice[]>(
+  //     this.baseURL + '/Question/GetAllChoices/'
+  //   );
+  // };
 
   getChoicesForQuestionId = (questionId: number): Observable<Choice[]> => {
     return this.httpClient.get<Choice[]>(

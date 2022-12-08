@@ -18,48 +18,49 @@ export class GameService {
   playerPerspectives: PlayerPerspective[] = [];
   themes: Theme[] = [];
   constructor(private httpClient: HttpClient) { }
-  gameServicePackage = (): void => {
-    this.loadGameModes();
-    this.loadGenres();
-    this.loadPlayerPerspectives();
-    this.loadThemes()
-  }
-  loadGameModes = (): void => {
-    this.getGameModes().subscribe((data  => this.gameModes = data));
-    let gameModeNames: string[] = this.gameModes.map(x => x.name);
-    // console.log(gameModeNames)
-  }
 
-  getGameModes = (): Observable<GameMode[]> => {
-    return this.httpClient.get<GameMode[]>(`${this.baseURL}/GameMode/GetGameModes`)}
 
-  loadGenres = (): void => {
-    this.getGenres().subscribe((data  => this.genres = data));
-    let genreNames: string[] = this.genres.map(x => x.name);
-    // console.log(genreNames)
-  }
+  // gameServicePackage = (): void => {
+  //   this.loadGameModes();
+  //   this.loadGenres();
+  //   this.loadPlayerPerspectives();
+  //   this.loadThemes()
+  // }
 
-  getGenres = (): Observable<Genre[]> => {
-    return this.httpClient.get<Genre[]>(`${this.baseURL}/Genre/GetGenres`)}
+  // loadGameModes = (): void => {
+  //   this.getGameModes().subscribe((data  => this.gameModes = data));
+  //   let gameModeNames: string[] = this.gameModes.map(x => x.name);
+  //   // console.log(gameModeNames)
+  // }
 
-  loadPlayerPerspectives = (): void => {
-    this.getPlayerPerspectives().subscribe((data  => this.playerPerspectives = data));
-    let playerPerspectiveNames: string[] = this.playerPerspectives.map(x => x.name);
-    // console.log(playerPerspectiveNames)
-  }
+  // getGameModes = (): Observable<GameMode[]> => {
+  //   return this.httpClient.get<GameMode[]>(`${this.baseURL}/GameMode/GetGameModes`)}
 
-  getPlayerPerspectives = (): Observable<PlayerPerspective[]> => {
-    return this.httpClient.get<PlayerPerspective[]>(`${this.baseURL}/PlayerPerspective/GetPlayerPerspectives`)}
+  // loadGenres = (): void => {
+  //   this.getGenres().subscribe((data  => this.genres = data));
+  //   let genreNames: string[] = this.genres.map(x => x.name);
+  //   // console.log(genreNames)
+  // }
 
-  loadThemes = (): void => {
-    this.getThemes().subscribe((data  => this.themes = data));
-    let themeNames: string[] = this.themes.map(x => x.name);
-    // console.log(themeNames)
-  }
+  // getGenres = (): Observable<Genre[]> => {
+  //   return this.httpClient.get<Genre[]>(`${this.baseURL}/Genre/GetGenres`)}
 
-  getThemes = (): Observable<PlayerPerspective[]> => {
-    return this.httpClient.get<PlayerPerspective[]>(`${this.baseURL}/Theme/GetThemes`)}
+  // loadPlayerPerspectives = (): void => {
+  //   this.getPlayerPerspectives().subscribe((data  => this.playerPerspectives = data));
+  //   let playerPerspectiveNames: string[] = this.playerPerspectives.map(x => x.name);
+  //   // console.log(playerPerspectiveNames)
+  // }
 
-  
+  // getPlayerPerspectives = (): Observable<PlayerPerspective[]> => {
+  //   return this.httpClient.get<PlayerPerspective[]>(`${this.baseURL}/PlayerPerspective/GetPlayerPerspectives`)}
+
+  // loadThemes = (): void => {
+  //   this.getThemes().subscribe((data  => this.themes = data));
+  //   let themeNames: string[] = this.themes.map(x => x.name);
+  //   // console.log(themeNames)
+  // }
+
+  // getThemes = (): Observable<PlayerPerspective[]> => {
+  //   return this.httpClient.get<PlayerPerspective[]>(`${this.baseURL}/Theme/GetThemes`)}
   }
 

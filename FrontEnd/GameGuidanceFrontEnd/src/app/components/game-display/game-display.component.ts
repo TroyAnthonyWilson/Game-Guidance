@@ -29,8 +29,6 @@ export class GameDisplayComponent implements OnInit {
     this.getIgnore();
   }
 
-
-  
    getFavorites = () : void => {
       this.favorite.getFavorites().subscribe((data: any) => {
         this.favorites = data;
@@ -62,21 +60,19 @@ export class GameDisplayComponent implements OnInit {
     };
   
   addToFavorites(id: number){
-    this.favorite.addfavorite(id).subscribe((data: any) => {
+    this.favorite.addfavorite(id).subscribe(() => {
       this.getFavorites();
-      this.getIgnore();
     }); 
     };
 
   removeFromFavorites(id: number){
-    this.favorite.removeFavorite(id).subscribe((data: any) => {
+    this.favorite.removeFavorite(id).subscribe(() => {
       this.getFavorites();
     }); 
     }
 
     addToIgnore(id: number){
-      this.ignore.addIgnore(id).subscribe((data: any) => {
-        this.getFavorites();
+      this.ignore.addIgnore(id).subscribe(() => {
         this.getIgnore();
       }); 
       };

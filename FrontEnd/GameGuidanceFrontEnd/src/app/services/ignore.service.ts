@@ -16,9 +16,9 @@ export class IgnoreService {
     return this.http.post<any>(`${this.baseUrl}addignore?gameId=${Id}`, Id);
   } 
 
-  removeIgnore(Id: number){
-    return this.http.delete<any>(`${this.baseUrl}removeignore?gameId=${Id}`);
-  }
+  // removeIgnore(Id: number){
+  //   return this.http.delete<any>(`${this.baseUrl}removeignore?gameId=${Id}`);
+  // }
 
   getIgnore= (): Observable<UserFavorite[]> => {
     return this.http.get<any>(`${this.baseUrl}getignores`);
