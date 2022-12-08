@@ -1,6 +1,7 @@
 <app-navbar></app-navbar>
 
 <div  *ngFor="let s of searchResult" class="row">
+  <ng-container *ngIf="!ignoreIds.includes(s.id)" >
     <div class="col-md-4" >
       <div class="card">
         <div class="card-body">
@@ -8,7 +9,7 @@
           <p class="card-text">{{s.summary}}</p>
 
 
-          <ng-container *ngIf="favoritesIds.includes(s.id) ; else joined">
+          <ng-container *ngIf="favoritesIds.includes(s.id) || ignoreIds.includes(s.id) ; else joined">
             <div class="btn-toolbar m-auto" role="toolbar">
               <div class="btn-group me-2" role="group" aria-label="First group">
                 <button class="btn btn-outline-primary" (click)="removeFromFavorites(s.id)">Remove from Favorites</button>
@@ -20,9 +21,11 @@
           </ng-container>
           <ng-template #joined>
             <button class="btn btn-outline-primary" (click)="addToFavorites(s.id)">Add to Favorites</button>
+            <button class="btn btn-outline-primary" (click)="addToIgnore(s.id)">Add to Ignore</button>
           </ng-template>
           </div>
         </div>
         <br />
+     
       </div>
-    
+     </ng-container>
