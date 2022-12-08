@@ -21,42 +21,37 @@ export class MainPageComponent  {
    ratingControl = new FormControl(0);
 
   constructor(config: NgbRatingConfig, private favorite : FavoriteService,private auth: AuthService ,private userService: UserService) {
-    // customize default values of ratings used by this component tree
      config.max = 5;
   }
 
-  ngOnInit(): void {
-    this.getUserNameFromToken();
-    this.getFavorites();
-  }
+    ngOnInit(): void {
+      this.getUserNameFromToken();
+      this.getFavorites();
+    }
 
 
     getUserNameFromToken(){
       this.userService.getUserName()
       .subscribe(val => {
-        let usernameFromToken = this.auth.getUserNameFromToken();
-        this.username = val || usernameFromToken;
-      });
+      let usernameFromToken = this.auth.getUserNameFromToken();
+      this.username = val || usernameFromToken;
+    });
   }
 
-  getFavorites = () : void => {
-    this.favorite.getFavorites().subscribe((data: any) => {
+    getFavorites = () : void => {
+      this.favorite.getFavorites().subscribe((data: any) => {
       this.favorites = data;
     });
   }
 
-// add to favorites
-addToFavorites(id: number){
-  console.log("Add to favorites: " + id);
-  this.favorite.addfavorite(id).subscribe(() => {
+  addToFavorites(id: number){
+    this.favorite.addfavorite(id).subscribe(() => {
     this.getFavorites();
   }); 
   };
 
-// remove from favorites
-removeFromFavorites(id: number){
-  console.log("Remove from favorites: " + id);
-  this.favorite.removeFavorite(id).subscribe(() => {
+  removeFromFavorites(id: number){
+    this.favorite.removeFavorite(id).subscribe(() => {
     this.getFavorites();
   }); 
   }

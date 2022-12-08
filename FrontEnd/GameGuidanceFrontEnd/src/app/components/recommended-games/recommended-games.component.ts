@@ -1,4 +1,4 @@
-import { Component, OnInit, ValueSansProvider } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Answer } from 'src/app/interfaces/answer';
 import { Choice } from 'src/app/interfaces/choice';
 import { QuestionService } from 'src/app/services/question.service';
@@ -13,6 +13,8 @@ import { UserFavorite } from 'src/app/interfaces/user-favorite';
   templateUrl: './recommended-games.component.html',
   styleUrls: ['./recommended-games.component.css'],
 })
+
+
 export class RecommendedGamesComponent implements OnInit {
   questionList: Question[] = [];
   displayQuestionModal!: Question;
@@ -69,14 +71,12 @@ export class RecommendedGamesComponent implements OnInit {
   setQuestionOptions(questionArray: Question[]): void{
     for (let i = 0; i < questionArray.length; i++) {
       const question = questionArray[i];
-      // console.log(question.id);
       question.options = this.getOptionsForQuestionId(question.id);
     }
   }
 
   openPopup(): void {
     console.log('openPopup called');
-    //this.getAllChoices();
     this.displayStyleQuestionModal = 'block';
     this.setQuestionOptions(this.questionList);
   }
@@ -84,12 +84,10 @@ export class RecommendedGamesComponent implements OnInit {
 
   setQuestionNumber(number: Number) {
     this.currentQuestionNo === number;
-    // console.log(this.currentQuestionNo);
   }
 
   openEditPopup(): void {
     console.log('openEditPopup called');
-    //this.setQuestionNumber(this.currentQuestionNo)
     this.displayEditResponseModal = 'block';
   }
 
@@ -97,35 +95,26 @@ export class RecommendedGamesComponent implements OnInit {
   showNextQuestion(): void {
     console.log('showNextQuestion called');
     if (this.selectedResponse != 'None') {
-      // reset modal warning text
       this.modalWarningText = '';
-
-      //Find index of specific object using findIndex method.
       let objIndex = this.questionList.findIndex(
         (obj) => obj.id == this.currentQuestionNo
       );
-       //Update object's name property.
        if(this.selectedResponse != 'No Preference'){
         this.questionList[objIndex].userResponse = this.selectedResponse;
         this.questionList[objIndex].isAnswered = true;
        }       
-        // reset response to all
         this.selectedResponse = 'None';
-        // check if question has next index
       if (this.questionList[objIndex + 1] != undefined) {
-        // console.log('next question exists');
         this.currentQuestionNo++;
         this.displayQuestionModal = this.questionList[this.currentQuestionNo -1];
       } else {
-        // console.log('next question does not exist');
         this.closePopup();
       }
     } else {
       this.modalWarningText = '*you didnt pick a value*';
     }
 
-
-    // if any questions are answered call the find games function
+    //if any question is answered, set isAnswered to true and find games
     if(!this.isAnswered){
       this.questionList.forEach((q)=>{
         if(q.isAnswered === true){
@@ -143,7 +132,6 @@ export class RecommendedGamesComponent implements OnInit {
 
 
   closePopup(): void {
-    // console.log('closePopup called');
     this.displayStyleQuestionModal = 'none';
   }
 
@@ -162,12 +150,9 @@ export class RecommendedGamesComponent implements OnInit {
 
 
 
-  //find games based on user responses
   findGames(): void {
     console.log('findGames called');
     for (let i = 0; i < this.questionList.length; i++) {
-      const question = this.questionList[i];
-      // console.log(question.userResponse, question.id);
     }
 
     this.answers = {
@@ -178,54 +163,12 @@ export class RecommendedGamesComponent implements OnInit {
       theme: Number(this.questionList[4].userResponse),
       //rating: Number(this.questionList[5].userResponse),
     };
-    
-
-
     this.answerService.getGameResult(this.answers).subscribe((response: Search[]) => {
       console.log(response);
       this.search = response;
-      this.getFavorites();
       if(this.search.length < 4){
         this.closePopup();
       }
     });
-    // console.log(this.answers);
-
-  }
-
-  getFavorites = () : void => {
-    this.favorite.getFavorites().subscribe((data: any) => {
-      this.favorites = data;
-      this.getFavoritesIds();
-    });
-  }
-
-  getFavoritesIds = () => {
-    let ids: Number[] = [];
-    this.favorites.forEach((fav) => {
-      ids.push(fav.gameId);
-    });
-    //console.log("ids: " + ids);
-    
-    this.favoritesIds = ids;
-    //console.log("favoritesIds: " + this.favoritesIds);   
-  };
-
-  // add to favorites
-addToFavorites(id: number){
-  console.log("Add to favorites: " + id);
-  this.favorite.addfavorite(id).subscribe((data: any) => {
-    //console.log(data);
-    this.getFavorites();
-  }); 
-  };
-
-  // remove from favorites
-removeFromFavorites(id: number){
-  console.log("Remove from favorites: " + id);
-  this.favorite.removeFavorite(id).subscribe((data: any) => {
-    //console.log(data);
-    this.getFavorites();
-  }); 
   }
 }
