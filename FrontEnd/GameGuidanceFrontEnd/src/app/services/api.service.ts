@@ -16,9 +16,9 @@ export class ApiService {
   //   return this.http.get<any>(`${this.baseUrl}`);
   // }
 
-  UserData(tokenObj: any){
-    return this.http.post<any>(`${this.baseUrl}User/UserData`, {userToken: tokenObj});
-  }
+  // UserData(tokenObj: any){
+  //   return this.http.post<any>(`${this.baseUrl}User/UserData`, {userToken: tokenObj});
+  // }
 
 
 }
