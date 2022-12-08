@@ -137,12 +137,4 @@ removeFromFavorites(id: number){
     this.getFavorites();
   }); 
   }
-
-  removeFromIgnore(id: number){
-    console.log("Removed from ignore: " + id);
-    this.ignore.removeIgnore(id).subscribe((data: any) => {
-      //console.log(data);
-      this.getIgnore();
-    }); 
-    }
 }
