@@ -155,9 +155,9 @@ export class RecommendedGamesComponent implements OnInit {
 
   clearAllResponses(): void {
     console.log('clearAllResponses called');
-    this.questionList.forEach((q)=>{
-      q.userResponse = '';
-    });
+    this.questionList =[];
+    this.search = [];
+    this.populateQuestionList();
   }
 
 
@@ -185,6 +185,9 @@ export class RecommendedGamesComponent implements OnInit {
       console.log(response);
       this.search = response;
       this.getFavorites();
+      if(this.search.length < 4){
+        this.closePopup();
+      }
     });
     // console.log(this.answers);
 
