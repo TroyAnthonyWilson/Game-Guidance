@@ -41,7 +41,15 @@ export class GameDisplayComponent implements OnInit {
         this.ignores = data;
         this.getIgnoreIds();
       });
-    }
+    } 
+    
+    getIgnoreIds = () => {
+      let ids: Number[] = [];
+      this.ignores.forEach((ignore) => {
+        ids.push(ignore.gameId);
+      });  
+      this.ignoreIds = ids;
+    };
   
     getFavoritesIds = () => {
       let ids: Number[] = [];
@@ -51,13 +59,7 @@ export class GameDisplayComponent implements OnInit {
       this.favoritesIds = ids;
     };
   
-    getIgnoreIds = () => {
-      let ids: Number[] = [];
-      this.ignores.forEach((ignore) => {
-        ids.push(ignore.gameId);
-      });  
-      this.ignoreIds = ids;
-    };
+   
   
   addToFavorites(id: number){
     this.favorite.addfavorite(id).subscribe(() => {

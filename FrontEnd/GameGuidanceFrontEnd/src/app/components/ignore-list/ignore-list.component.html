@@ -1,0 +1,18 @@
+<app-navbar></app-navbar>
+<div  *ngFor="let g of ignores" class="row">   
+      <div class="col-md-4" >
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">{{g.name}}</h5>
+          <p class="card-text">{{g.summary}}</p>
+            <div class="btn-toolbar m-auto" role="toolbar">
+              <div class="btn-group me-2" role="group" aria-label="First group">
+                <button class="btn btn-outline-primary" (click)="removeIgnore(g.gameId)" >Remove from Ignore</button>
+              </div>
+              <div class="btn-group me-2" role="group" aria-label="First group">
+              </div>
+            </div>
+          </div>
+        </div>
+        <br />  
+      </div>
