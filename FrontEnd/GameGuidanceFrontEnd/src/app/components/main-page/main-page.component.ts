@@ -1,6 +1,7 @@
 
 import { Component} from '@angular/core';
 import { FormControl } from '@angular/forms';
+import { Router } from '@angular/router';
 import { NgbRatingConfig } from '@ng-bootstrap/ng-bootstrap';
 import { UserFavorite } from 'src/app/interfaces/user-favorite';
 import { AuthService } from 'src/app/services/auth.service';
@@ -14,13 +15,14 @@ import { UserService } from 'src/app/services/user.service';
 })
 
 export class MainPageComponent  {
+[x: string]: any;
 
    public users: any = [];
    public username: string = "";
    favorites: UserFavorite[] = [];
    ratingControl = new FormControl(0);
 
-  constructor(config: NgbRatingConfig, private favorite : FavoriteService,private auth: AuthService ,private userService: UserService) {
+  constructor(private router: Router, config: NgbRatingConfig, private favorite : FavoriteService,private auth: AuthService ,private userService: UserService) {
      config.max = 5;
   }
 
@@ -60,5 +62,8 @@ export class MainPageComponent  {
     this.favorite.updateRating(id, rating).subscribe(() => {
       this.getFavorites();
     }); 
+  }
+  navigateToNewGame(){
+    this['router'].navigate(['/findNewGame']); // when user signs out -> go to sign in page
   }
 }
