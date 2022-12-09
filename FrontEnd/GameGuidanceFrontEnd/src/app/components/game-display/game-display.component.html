@@ -1,5 +1,6 @@
 <div  *ngFor="let g of searchResult" class="row">
   <ng-container *ngIf="!ignoreIds.includes(g.id)" >
+    <div class="d-flex justify-content-center m-1">
     <div class="col-md-4" >
     <div class="card">
       <div class="card-body">
@@ -19,6 +20,7 @@
           <button class="btn btn-outline-primary" (click)="addToIgnore(g.id)">Add to Ignore</button>
         </ng-template>
         </div>
+      </div>
       </div>
       <br />  
     </div>
