@@ -29,6 +29,10 @@ export class NavbarComponent implements OnInit {
     this.router.navigate(['/findNewGame']); // when user signs out -> go to sign in page
   }
 
+  navigateToIgnoreList(){
+    this.router.navigate(['/ignore']); // when user signs out -> go to sign in page
+  }
+
   submit = (search: string) => {
     this.router.navigate(['/search'], { queryParams: { search: search } });
   }
