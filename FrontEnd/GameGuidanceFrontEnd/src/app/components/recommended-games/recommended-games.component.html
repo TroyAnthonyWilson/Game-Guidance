@@ -1,6 +1,106 @@
-<app-navbar></app-navbar>
+
+    <app-navbar></app-navbar>
+    <body style="background-color: rgb(73,71, 134);">
+      <!-- Header-->
+      <header class="py-5">
+          <div class="container px-lg-5">
+              <div class="p-4 p-lg-5 bg-light rounded-3 text-center">
+                  <div class="m-4 m-lg-5">
+                      <h1 class="display-5 fw-bold">Game Finder</h1>
+                      <p class="fs-4"></p>
+                      <a class="btn btn-primary btn-lg" (click)="openPopup()" style="margin-right: 10rem; background-color: green;">Start Search</a>
+                      <a class="btn btn-primary btn-lg" (click)="clearAllResponses()" style="background-color: red">Start Over</a>
+                  </div>
+              </div>
+          </div>
+      </header>
+      <!-- Page Content-->
+      <section class="pt-4">
+          <div class="container px-lg-5">
+              <!-- Page Features-->
+              <div class="row gx-lg-5">
+                  <div class="col-lg-6 col-xxl-4 mb-5" style="width: 100%;">
+                      <div class="card bg-light border-0 h-100">
+                          <div class="card-body text-center p-4 p-lg-5 pt-0 pt-lg-0" style="margin-top: 3rem">
+                              <!-- <div class="feature bg-primary bg-gradient text-white rounded-3 mb-4 mt-n4"><i class="bi bi-collection"></i></div> -->
+                              <table class="table">
+                                <thead>
+                                  <tr>
+                                    <th scope="col">Question No</th>
+                                    <th scope="col">Question</th>
+                                    <th scope="col">Id</th>
+                                    <th scope="col">User has answered</th>
+                                    <th scope="col"></th>
+                                  </tr>
+                                </thead>
+                                <tbody>
+                                  <tr *ngFor="let question of questionList; index as i">
+                                    <td *ngIf="question.isAnswered">{{ question.id }}</td>
+                                    <td *ngIf="question.isAnswered">{{ question.questionName }}</td>
+                                    <td *ngIf="question.isAnswered">{{ question.userResponse }}</td>
+                                    <td *ngIf="question.isAnswered">{{ question.isAnswered }}</td>
+                                    <td *ngIf="question.isAnswered"> <button (click)="setQuestionNumber(i + 1)" class="btn btn-outline-info m-0"
+                                      >Edit</button></td>
+                                  </tr>
+                                </tbody>
+                              </table>
+                              <a class="btn btn-primary btn-lg" (click)="findGames()" style="margin-right: auto; background-color: #0dcaf0; color: black; 
+                              font-weight: bolder;">Find Games</a>
+                            </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </section>
+
+      <app-game-display [searchResult]="search"></app-game-display>
+      
+      <!-- Footer-->
+      <footer class="py-5 bg-dark">
+          <div class="container"><p class="m-0 text-center text-white">Last Updated: December 2022</p></div>
+      </footer>
+      <!-- Bootstrap core JS-->
+      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+      <!-- Core theme JS-->
+      <script src="js/scripts.js"></script>
+  </body>
+
+  <div
+  class="modal"
+  tabindex="-1"
+  role="dialog"
+  ngModel="displayQuestionModal"
+  [ngStyle]="{ display: displayStyleQuestionModal }"
+>
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title">{{ displayQuestionModal.questionName }} {{displayQuestionModal.id}}</h4>
+      </div>
+      <div class="modal-body">
+        <p style="color: red">{{modalWarningText}}</p>
+
+
+
+        <select class="form-select" [(ngModel)]="selectedResponse">
+            <option selected>None</option>
+            <option>No Preference</option>
+            
+            <option *ngFor="let choice of displayQuestionModal.options" value={{choice.apiChoiceId}}>{{choice.choiceName}}</option>
+        </select>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" (click)="showNextQuestion()">Next Question</button>
+        <button type="button" class="btn btn-danger" (click)="closePopup()">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- <app-navbar></app-navbar> -->
 <!-- header and button -->
-<div class="container text-center">
+<!-- <div class="container text-center">
   <div class="row">
     <div class="col-sm-12 mt-4">
       <h3>Click here to start your game search</h3>
@@ -16,10 +116,10 @@
     </div>
   </div>
 </div>
-<hr />
+<hr /> -->
 <!-- question bank -->
 
-<div class="container text-center">
+<!-- <div class="container text-center">
   <div class="row">
     <div class="col-sm-12 mt-3">
       <h3>Question Responses</h3>
@@ -59,11 +159,11 @@
       </table>
     </div>
   </div>
-</div>
+</div> -->
 
 <!-- question modal -->
 
-<div
+<!-- <div
   class="modal"
   tabindex="-1"
   role="dialog"
@@ -76,12 +176,12 @@
         <h4 class="modal-title">{{ displayQuestionModal.questionName }} {{displayQuestionModal.id}}</h4>
       </div>
       <div class="modal-body">
-        <p style="color: red">{{modalWarningText}}</p>
+        <p style="color: red">{{modalWarningText}}</p> -->
 
 
 
         <!-- <p>Get API response for items here in dropdown</p> -->
-        <select class="form-select" [(ngModel)]="selectedResponse">
+        <!-- <select class="form-select" [(ngModel)]="selectedResponse">
             <option selected>None</option>
             <option>No Preference</option>
             
@@ -96,4 +196,4 @@
   </div>
 </div>
 
-<app-game-display [searchResult]="search"></app-game-display>
+<app-game-display [searchResult]="search"></app-game-display> -->
