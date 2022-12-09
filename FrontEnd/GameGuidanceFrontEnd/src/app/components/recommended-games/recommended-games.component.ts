@@ -102,6 +102,13 @@ export class RecommendedGamesComponent implements OnInit {
        if(this.selectedResponse != 'No Preference'){
         this.questionList[objIndex].userResponse = this.selectedResponse;
         this.questionList[objIndex].isAnswered = true;
+
+        this.questionList[objIndex].options?.forEach((c)=>{
+          if(c.apiChoiceId === Number(this.selectedResponse)){
+            this.questionList[objIndex].nameOfUserChoice = c.choiceName;
+          }
+        });
+        
        }       
         this.selectedResponse = 'None';
       if (this.questionList[objIndex + 1] != undefined) {
