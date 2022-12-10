@@ -17,7 +17,16 @@ import { UserFavorite } from 'src/app/interfaces/user-favorite';
 
 export class RecommendedGamesComponent implements OnInit {
   questionList: Question[] = [];
-  displayQuestionModal!: Question;
+
+
+  displayQuestionModal: Question = {
+    id: 0,
+    questionName: '',
+    userResponse: 'None',
+    nameOfUserChoice: '',
+    isAnswered: false,
+    options: [],
+  };
 
 
   choicesList: Choice[] = [];
