@@ -27,7 +27,6 @@ import { IgnoreListComponent } from './components/ignore-list/ignore-list.compon
     NavbarComponent,
     AboutComponent,
     RecommendedGamesComponent,
-    // NgModule,
     MainPageComponent,
     SearchComponent,
     GameDisplayComponent,
@@ -40,7 +39,6 @@ import { IgnoreListComponent } from './components/ignore-list/ignore-list.compon
     HttpClientModule,
     NgbModule,
     FormsModule
-    // MainPageComponent,
   ],
   providers: [{
     provide: HTTP_INTERCEPTORS,
