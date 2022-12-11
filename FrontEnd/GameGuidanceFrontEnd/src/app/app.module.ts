@@ -16,6 +16,7 @@ import { RecommendedGamesComponent } from './components/recommended-games/recomm
 import { MainPageComponent } from './components/main-page/main-page.component';
 import { SearchComponent } from  './components/search/search.component';
 import { GameDisplayComponent } from './components/game-display/game-display.component';
+import { IgnoreListComponent } from './components/ignore-list/ignore-list.component';
 
 
 @NgModule({
@@ -30,6 +31,7 @@ import { GameDisplayComponent } from './components/game-display/game-display.com
     MainPageComponent,
     SearchComponent,
     GameDisplayComponent,
+    IgnoreListComponent,
   ],
   imports: [
     BrowserModule,
