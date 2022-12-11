@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Search } from 'src/app/interfaces/gameInfo';
+import { Search } from 'src/app/interfaces/search';
 import { SearchService } from 'src/app/services/search.service';
 import { UserFavorite } from 'src/app/interfaces/user-favorite';
 

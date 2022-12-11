@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { Search } from 'src/app/interfaces/gameInfo';
+import { Search } from 'src/app/interfaces/search';
 import { UserFavorite } from 'src/app/interfaces/user-favorite';
 import { FavoriteService } from 'src/app/services/favorite.service';
 import { IgnoreService } from 'src/app/services/ignore.service';

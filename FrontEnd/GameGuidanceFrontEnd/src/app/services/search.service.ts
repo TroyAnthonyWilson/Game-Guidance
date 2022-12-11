@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Search } from '../interfaces/gameInfo';
+import { Search } from '../interfaces/search';
 
 @Injectable({
   providedIn: 'root'

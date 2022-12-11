@@ -4,7 +4,7 @@ import { Choice } from 'src/app/interfaces/choice';
 import { QuestionService } from 'src/app/services/question.service';
 import { Question } from '../../interfaces/question';
 import { AnswerService } from 'src/app/services/answer.service';
-import { Search } from 'src/app/interfaces/gameInfo';
+import { Search } from 'src/app/interfaces/search';
 import { FavoriteService } from 'src/app/services/favorite.service';
 import { UserFavorite } from 'src/app/interfaces/user-favorite';
 
