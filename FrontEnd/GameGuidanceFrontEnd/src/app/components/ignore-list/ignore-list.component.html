@@ -1,20 +1,53 @@
 <app-navbar></app-navbar>
-<div  *ngFor="let g of ignores" class="row">   
-  <div class="d-flex justify-content-center m-auto">
-      <div class="col-md-4" >
-      <div class="card">
-        <div class="card-body">
-          <h5 class="card-title">{{g.name}}</h5>
-          <p class="card-text">{{g.summary}}</p>
-            <div class="btn-toolbar m-auto" role="toolbar">
-              <div class="btn-group me-2" role="group" aria-label="First group">
-                <button class="btn btn-outline-primary" (click)="removeIgnore(g.gameId)" >Remove from Ignore</button>
+<body class="bg-gradient" style="background-color: rgb(73,71, 134);">
+  <!-- Header-->
+  <header class="py-5" >
+      <div class="container px-lg-5">
+          <div class="p-4 p-lg-5 bg-gradient rounded-3 text-center" style="background-color:rgb(154, 34, 87);color:rgb(225, 236, 238);box-shadow: 1rem 0.5rem 0.5rem black;">
+              <div class="m-4 m-lg-5">
+                  <h1 class="display-5 fw-bold">{{username}}'s Ignored List</h1>
+                  <ng-container *ngIf="ignores.length > 0; else noIgnores">
+                    <p class="fs-4">These games will be excluded from your recommendation</p>
+                  </ng-container>
+                  <ng-template #noIgnores>
+                    <p class="fs-4">Nothing in your ignore list</p>
+                  </ng-template>
               </div>
-              <div class="btn-group me-2" role="group" aria-label="First group">
-              </div>
-            </div>
           </div>
-        </div>
-        <br />  
       </div>
-    </div>
+  </header>
+  <!-- Page Content-->
+  <section class="pt-4">
+      <div class="container px-lg-5" *ngFor="let i of ignores">
+          <!-- Page Features-->
+          <div class="row gx-lg-5">
+              <div class="col-lg-6 col-xxl-4 mb-5" style="width: 100%;">
+                  <div class="card bg-gradient border-0 h-100" style="background-color: #4A99E8; color: rgb(39, 41, 41);box-shadow: 1rem 0.5rem 0.5rem black;">
+                      <div class="card-body text-center p-4 p-lg-5 pt-0 pt-lg-0">
+                          <!-- <div class="feature bg-primary bg-gradient text-white rounded-3 mb-4 mt-n4"><i class="bi bi-collection"></i></div> -->
+                          <h2 class="fs-4 fw-bold">{{i.name}}</h2>
+                          <p class="mb-0" style="text-align: left;">{{i.summary}}</p>
+                          <div class="btn-toolbar m-auto" role="toolbar">
+                            <div class="rate" style="margin-left: 46%; margin-top: 2rem;">
+                            </div> 
+                            <div class="btn-group me-2" role="group" aria-label="First group" style="margin-left: 39%">
+                              <button class="btn btn-outline-primary btn-lg" (click)="removeIgnore(i.gameId)" style="background-color: #9A2257;color: rgb(255, 254, 254);
+                              font-weight: bolder;">
+                                Remove from Ignore</button>
+                            </div>
+                          </div> 
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </section>
+  <!-- Footer-->
+  <footer class="py-5 bg-dark">
+      <div class="container"><p class="m-0 text-center text-white">Last Updated: December 2022</p></div>
+  </footer>
+  <!-- Bootstrap core JS-->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+  <!-- Core theme JS-->
+  <script src="js/scripts.js"></script>
+</body>

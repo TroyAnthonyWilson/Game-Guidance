@@ -6,8 +6,13 @@
           <div class="p-4 p-lg-5 bg-gradient rounded-3 text-center" style="background-color:rgb(154, 34, 87);color:rgb(225, 236, 238);box-shadow: 1rem 0.5rem 0.5rem black;">
               <div class="m-4 m-lg-5">
                   <h1 class="display-5 fw-bold">{{username}}'s Favorite Games</h1>
-                  <p class="fs-4">These are pretty cool! Why don't we find the next game to add to your favorites?</p>
-                  <a class="btn btn-primary btn-lg" (click)="navigateToNewGame()">Find New Game</a>
+                  <ng-container *ngIf="favorites.length > 0; else noFavorites">
+                    <p class="fs-4">These are pretty cool! Why don't we find the next game to add to your favorites?</p>
+                  </ng-container>
+                  <ng-template #noFavorites>
+                    <p class="fs-4">No favorites yet, go search for a game!</p>
+                  </ng-template>
+                  <a class="btn btn-primary btn-lg" (click)="navigateToNewGame()" style="background-color: #331b8a; color: rgb(255, 255, 255);">Find New Game</a>
               </div>
           </div>
       </div>
@@ -18,7 +23,7 @@
           <!-- Page Features-->
           <div class="row gx-lg-5">
               <div class="col-lg-6 col-xxl-4 mb-5" style="width: 100%;">
-                  <div class="card bg-gradient border-0 h-100" style="background-color: #C4BEBB; color: rgb(39, 41, 41);box-shadow: 1rem 0.5rem 0.5rem black;">
+                  <div class="card bg-gradient border-0 h-100" style="background-color: #4A99E8; color: rgb(39, 41, 41);box-shadow: 1rem 0.5rem 0.5rem black;">
                       <div class="card-body text-center p-4 p-lg-5 pt-0 pt-lg-0">
                           <!-- <div class="feature bg-primary bg-gradient text-white rounded-3 mb-4 mt-n4"><i class="bi bi-collection"></i></div> -->
                           <h2 class="fs-4 fw-bold">{{f.name}}</h2>
@@ -28,7 +33,7 @@
                               <ngb-rating [(rate)]="f.rating" (rateChange)="updateRating(f.gameId , f.rating)"></ngb-rating>            
                             </div> 
                             <div class="btn-group me-2" role="group" aria-label="First group" style="margin-left: 39%">
-                              <button class="btn btn-outline-primary btn-lg" (click)="removeFromFavorites(f.gameId)" style="background-color: rgb(185, 48, 66);color: navy;
+                              <button class="btn btn-outline-primary btn-lg" (click)="removeFromFavorites(f.gameId)" style="background-color: #9A2257;color: rgb(255, 254, 254);
                               font-weight: bolder;">
                                 Remove from Favorites</button>
                             </div>
@@ -49,7 +54,7 @@
   <script src="js/scripts.js"></script>
 </body>
 
-<div  *ngFor="let f of favorites" >
+<!--<div  *ngFor="let f of favorites" >
   <div class="d-flex justify-content-center m-1">
   <div class="col-md-4" >
     <div class="card">

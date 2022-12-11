@@ -41,7 +41,7 @@
                                     <td *ngIf="question.isAnswered">{{ question.userResponse }}</td>
                                     <td *ngIf="question.isAnswered">{{ question.isAnswered }}</td>
                                     <td *ngIf="question.isAnswered"> <button (click)="setQuestionNumber(i + 1)" class="btn btn-outline-info m-0"
-                                      >Edit</button></td>
+                                      style="background-color: yellow; color: black; font-weight: bolder;">Edit</button></td>
                                   </tr>
                                 </tbody>
                               </table>
