@@ -165,15 +165,15 @@ export class RecommendedGamesComponent implements OnInit {
     this.answers = {
       platform: Number(this.questionList[0].userResponse),
       gameMode: Number(this.questionList[1].userResponse),
-      playerPerspective: Number(this.questionList[2].userResponse),
-      genre: Number(this.questionList[3].userResponse),
+      genre: Number(this.questionList[2].userResponse),
+      playerPerspective: Number(this.questionList[3].userResponse),
       theme: Number(this.questionList[4].userResponse),
       //rating: Number(this.questionList[5].userResponse),
     };
     this.answerService.getGameResult(this.answers).subscribe((response: Search[]) => {
       console.log(response);
       this.search = response;
-      if(this.search.length < 4){
+      if(this.search.length < 1){
         this.closePopup();
       }
     });
