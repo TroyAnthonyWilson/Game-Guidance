@@ -11,9 +11,10 @@ import { IgnoreService } from 'src/app/services/ignore.service';
   styleUrls: ['./game-display.component.css']
 })
 export class GameDisplayComponent implements OnInit {
+[x: string]: TemplateRef<NgIfContext<boolean>>|null;
 
   search: string = "";
-  favorites: UserFavorite[] = [];
+  favorites: UserFavorite[] = [];z
   ignores: UserFavorite[] = [];
   favoritesIds: Number[] = [];
   ignoreIds: Number[] = [];
