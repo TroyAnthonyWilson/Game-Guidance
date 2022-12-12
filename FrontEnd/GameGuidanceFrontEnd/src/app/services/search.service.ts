@@ -12,7 +12,6 @@ export class SearchService {
 
   constructor(private http: HttpClient) { }
 
-
   search = (search: any): Observable<Search[]> => {
     return this.http.get<Search[]>(`${this.baseUrl}search?search=${search.search}`);
   }

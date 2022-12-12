@@ -17,6 +17,8 @@ import { UserFavorite } from 'src/app/interfaces/user-favorite';
 
 export class RecommendedGamesComponent implements OnInit {
   questionList: Question[] = [];
+
+
   displayQuestionModal!: Question;
 
 
@@ -33,6 +35,7 @@ export class RecommendedGamesComponent implements OnInit {
   favoritesIds: Number[] = [];
   answers!: Answer;
   isAnswered: Boolean = false;
+  isLoaded: Boolean = false;
 
 
   constructor(private questionService: QuestionService, private answerService: AnswerService, private favorite: FavoriteService) {}
@@ -46,8 +49,14 @@ export class RecommendedGamesComponent implements OnInit {
       this.questionList = response;
       this.currentQuestionNo = this.questionList[0].id;
       this.displayQuestionModal = this.questionList[0];
+      if(this.questionList.length > 0) this.loaded();      
     });
   }
+
+  loaded(): void {
+    this.isLoaded = true;
+  }
+
 
   // getAllChoices= (): void => {
   //   this.questionService.getAllChoices().subscribe((response) => {
