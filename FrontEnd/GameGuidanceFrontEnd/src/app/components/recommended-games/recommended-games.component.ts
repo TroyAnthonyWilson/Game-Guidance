@@ -18,7 +18,7 @@ export class RecommendedGamesComponent implements OnInit {
   // selected question answer
   selectedResponse = '';
   modalWarningText = '';
-  constructor(private service: GameService, private questionService: QuestionService) {}
+  constructor(private service: GameService, private questionService: QuestionService) { }
 
   ngOnInit(): void {
     this.populateQuestionList();
@@ -74,13 +74,16 @@ export class RecommendedGamesComponent implements OnInit {
       questionNumber: 1,
       userQuestion: 'What system(s)	do you want to play this game on?',
       userResponse: '',
+      editResponse: '',
       isAnswered: false,
       options: ['Console', 'PC', 'No Preference']
     };
     let newQuestion2: Question = {
       questionNumber: 2,
+      editResponse: '',
       userQuestion: 'Do you want Single or Multiplayer?',
       userResponse: '',
+      editResponse: '',
       isAnswered: false,
       options: this.service.gameModes.map(x => x.name) //*Issue to be addressed: Answers only populate the second time the recommended-games page is opened */
     };
@@ -88,6 +91,7 @@ export class RecommendedGamesComponent implements OnInit {
       questionNumber: 3,
       userQuestion: 'What is your age range?',
       userResponse: '',
+      editResponse: '',
       isAnswered: false,
       options: ['Less than 10 years old', 'between 10 and 13', 'between 13 and 17', '17 Years old', '18+ years old']
     };
@@ -95,6 +99,7 @@ export class RecommendedGamesComponent implements OnInit {
       questionNumber: 4,
       userQuestion: 'What Genre of game are you interested in?',
       userResponse: '',
+      editResponse: '',
       isAnswered: false,
       options: this.service.genres.map(x => x.name) //*Issue to be addressed: Answers only populate the second time the recommended-games page is opened */
     };
@@ -102,6 +107,7 @@ export class RecommendedGamesComponent implements OnInit {
       questionNumber: 5,
       userQuestion: 'What perspective would you prefer in your next game?',
       userResponse: '',
+      editResponse: '',
       isAnswered: false,
       options: this.service.playerPerspectives.map(x => x.name) //*Issue to be addressed: Answers only populate the second time the recommended-games page is opened */
     };
@@ -109,6 +115,7 @@ export class RecommendedGamesComponent implements OnInit {
       questionNumber: 6,
       userQuestion: 'Which of these themes appeals to you the most?',
       userResponse: '',
+      editResponse: '',
       isAnswered: false,
       options: this.service.themes.map(x => x.name) //*Issue to be addressed: Answers only populate the second time the recommended-games page is opened */
     };
