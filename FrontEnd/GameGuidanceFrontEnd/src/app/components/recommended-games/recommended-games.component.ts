@@ -177,7 +177,7 @@ export class RecommendedGamesComponent implements OnInit {
       genre: Number(this.questionList[2].userResponse),
       playerPerspective: Number(this.questionList[3].userResponse),
       theme: Number(this.questionList[4].userResponse),
-      //rating: Number(this.questionList[5].userResponse),
+      rating: Number(this.questionList[5].userResponse),
     };
     this.answerService.getGameResult(this.answers).subscribe((response: Search[]) => {
       console.log(response);

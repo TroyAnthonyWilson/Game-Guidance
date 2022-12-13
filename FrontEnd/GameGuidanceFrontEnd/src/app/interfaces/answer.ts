@@ -5,6 +5,6 @@ export interface Answer {
     playerPerspective?: number;
     genre?: number;
     theme?: number;
-    //rating?: number;
+    rating?: number;
   }
   
