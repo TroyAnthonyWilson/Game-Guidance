@@ -41,8 +41,9 @@
                                     <td *ngIf="question.isAnswered">{{ question.questionName }}</td>
                                     <td *ngIf="question.isAnswered">{{ question.nameOfUserChoice }}</td>
                                     <!-- <td *ngIf="question.isAnswered">{{ question.isAnswered }}</td> -->
-                                    <td *ngIf="question.isAnswered"> <button (click)="setQuestionNumber(i + 1)" class="btn btn-outline-info m-0"
-                                      style="background-color: yellow; color: black; font-weight: bolder;">Edit</button></td>
+                                    <td *ngIf="question.isAnswered"> 
+                                      <!-- <button (click)="setQuestionNumber(i + 1)" class="btn btn-outline-info m-0"
+                                      style="background-color: yellow; color: black; font-weight: bolder;">Edit</button></td> -->
                                   </tr>
                                 </tbody>
                               </table>
