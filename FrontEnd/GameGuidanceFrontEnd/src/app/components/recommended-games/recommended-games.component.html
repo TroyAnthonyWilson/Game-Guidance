@@ -4,13 +4,14 @@
     <body style="background-color: rgb(73,71, 134);">
       <!-- Header-->
       <header class="py-5">
-          <div class="container px-lg-5">
-              <div class="p-4 p-lg-5 bg-light rounded-3 text-center">
+          <div class="container px-lg-5" >
+              <div class="p-4 p-lg-5 bg-gradient rounded-3 text-center" style="background-color:rgb(154, 34, 87);color:rgb(225, 236, 238);box-shadow: 
+              1rem 0.5rem 0.5rem black;">
                   <div class="m-4 m-lg-5">
                       <h1 class="display-5 fw-bold">Game Finder</h1>
                       <p class="fs-4"></p>
                       <a class="btn btn-primary btn-lg" (click)="openPopup()" style="margin-right: 10rem; background-color: green;">Start Search</a>
-                      <a class="btn btn-primary btn-lg" (click)="clearAllResponses()" style="background-color: red">Start Over</a>
+                      <a class="btn btn-primary btn-lg" (click)="clearAllResponses()" style="background-color: red; color: black; font-weight: bolder;">Start Over</a>
                   </div>
               </div>
           </div>
@@ -21,7 +22,7 @@
               <!-- Page Features-->
               <div class="row gx-lg-5">
                   <div class="col-lg-6 col-xxl-4 mb-5" style="width: 100%;">
-                      <div class="card bg-light border-0 h-100">
+                      <div class="card bg-gradient border-0 h-100" style="background-color: #C4BEBB; color: rgb(39, 41, 41);box-shadow: 1rem 0.5rem 0.5rem black;">
                           <div class="card-body text-center p-4 p-lg-5 pt-0 pt-lg-0" style="margin-top: 3rem">
                               <!-- <div class="feature bg-primary bg-gradient text-white rounded-3 mb-4 mt-n4"><i class="bi bi-collection"></i></div> -->
                               <table class="table">
@@ -41,12 +42,12 @@
                                     <td *ngIf="question.isAnswered">{{ question.nameOfUserChoice }}</td>
                                     <!-- <td *ngIf="question.isAnswered">{{ question.isAnswered }}</td> -->
                                     <td *ngIf="question.isAnswered"> <button (click)="setQuestionNumber(i + 1)" class="btn btn-outline-info m-0"
-                                      >Edit</button></td>
+                                      style="background-color: yellow; color: black; font-weight: bolder;">Edit</button></td>
                                   </tr>
                                 </tbody>
                               </table>
-                              <a class="btn btn-primary btn-lg" (click)="findGames()" style="margin-right: auto; background-color: #0dcaf0; color: black; 
-                              font-weight: bolder;">Find Games</a>
+                              <!-- <a class="btn btn-primary btn-lg" (click)="findGames()" style="margin-right: auto; background-color: #0dcaf0; color: black; 
+                              font-weight: bolder;">Find Games</a> -->
                             </div>
                       </div>
                   </div>

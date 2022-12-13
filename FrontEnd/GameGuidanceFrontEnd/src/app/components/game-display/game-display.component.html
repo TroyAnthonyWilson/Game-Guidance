@@ -1,6 +1,63 @@
-<div  *ngFor="let g of searchResult" class="row">
+
+    <body style="background-color: rgb(73,71, 134); background-image: var(gradient(top to bottom))">
+      <!-- Header-->
+      <header class="py-5">
+          <div class="container px-lg-5" >
+            <div class="p-4 p-lg-5 bg-gradient rounded-3 text-center" style="background-color:rgb(154, 34, 87);color:rgb(225, 236, 238);box-shadow: 
+            1rem 0.5rem 0.5rem black;">
+                <div class="m-4 m-lg-5">
+                  <ng-container *ngIf="searchResult.length > 0; else noResults">
+                    <h1 class="display-5 fw-bold">It's dangerous to go alone, try these!</h1>
+                  </ng-container>
+                  <ng-template #noResults>
+                    <h1 class="display-5 fw-bold">No results, try adding or changing your parameters!</h1>
+                  </ng-template>
+                  </div>
+              </div>
+          </div>
+      </header>
+      <!-- Page Content-->
+      <section class="pt-4">
+          <div class="container px-lg-5" *ngFor="let g of searchResult">
+              <!-- Page Features-->
+              <div class="row gx-lg-5" *ngIf="!ignoreIds.includes(g.id)">
+                  <div class="col-lg-6 col-xxl-4 mb-5" style="width: 100%;">
+                      <div class="card bg-gradient border-0 h-100" style="background-color: #4A99E8; color: rgb(39, 41, 41);box-shadow: 1rem 0.5rem 0.5rem black;">
+                          <div class="card-body text-center p-4 p-lg-5 pt-0 pt-lg-0">
+                              <!-- <div class="feature bg-primary bg-gradient text-white rounded-3 mb-4 mt-n4"><i class="bi bi-collection"></i></div> -->
+                                      <h5 class="card-title">{{g.name}}</h5>
+                                      <ng-template #searchResult></ng-template>
+                                      <p class="card-text">{{g.summary}}</p>
+                                      <ng-container *ngIf="favoritesIds.includes(g.id); else joined">
+                                        <div class="btn-toolbar m-auto" role="toolbar">
+                                          <div class="btn-group me-2" role="group" aria-label="First group">
+                                            <button class="btn btn-outline-primary" (click)="removeFromFavorites(g.id)">Remove from Favorites</button>
+                                          </div>
+                                          <div class="btn-group me-2" role="group" aria-label="First group">
+                                          </div>
+                                        </div>
+                                      </ng-container>
+                                      <ng-template #joined>
+                                        <a class="btn btn-primary btn-lg" (click)="addToFavorites(g.id)" style="margin-right: 10rem; background-color: green;">
+                                          Add to Favorites</a>
+                                        <a class="btn btn-primary btn-lg" (click)="addToIgnore(g.id)" style="background-color: red; color: black; font-weight: bolder;">
+                                          Add to Ignore</a>
+                                      </ng-template>
+                          </div>
+                      </div>
+                        <br />  
+                  </div>
+                </div>
+            </div>
+      </section>
+      <!-- Bootstrap core JS-->
+      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+      <!-- Core theme JS-->
+      <script src="js/scripts.js"></script>
+  </body>
+
+<!-- <div  *ngFor="let g of searchResult" class="row">
   <ng-container *ngIf="!ignoreIds.includes(g.id)" >
-    <div class="d-flex justify-content-center m-1">
     <div class="col-md-4" >
     <div class="card">
       <div class="card-body">
@@ -21,7 +78,6 @@
         </ng-template>
         </div>
       </div>
-      </div>
       <br />  
     </div>
-     </ng-container>
+     </ng-container> -->
