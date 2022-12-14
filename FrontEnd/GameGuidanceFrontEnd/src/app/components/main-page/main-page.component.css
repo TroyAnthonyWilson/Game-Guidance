@@ -1,15 +1,4 @@
-/* 
 
-h2 {
-  text-align: center;
-  margin-bottom: 40px;
-  
-}
-
-* {
-  margin: 0;
-  padding: 0;
-} */
 
 .rate {
   color: gold;
@@ -54,4 +43,3 @@ h2 {
   color: #c59b08;
 }
 
-/* Modified from: https://github.com/mukulkant/Star-rating-using-pure-css */

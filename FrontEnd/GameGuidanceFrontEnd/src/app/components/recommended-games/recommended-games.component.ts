@@ -49,7 +49,7 @@ export class RecommendedGamesComponent implements OnInit {
       this.questionList = response;
       this.currentQuestionNo = this.questionList[0].id;
       this.displayQuestionModal = this.questionList[0];
-      if(this.questionList.length > 0) this.loaded();      
+      if(this.questionList.length > 0) this.loaded();
     });
   }
 
@@ -58,11 +58,6 @@ export class RecommendedGamesComponent implements OnInit {
   }
 
 
-  // getAllChoices= (): void => {
-  //   this.questionService.getAllChoices().subscribe((response) => {
-  //     this.choicesList = response;
-  //   });
-  // }
 
   getOptionsForQuestionId = (questionId: number) : Choice[] => {
 
@@ -117,8 +112,8 @@ export class RecommendedGamesComponent implements OnInit {
             this.questionList[objIndex].nameOfUserChoice = c.choiceName;
           }
         });
-        
-       }       
+
+       }
         this.selectedResponse = 'None';
       if (this.questionList[objIndex + 1] != undefined) {
         this.currentQuestionNo++;
@@ -151,11 +146,6 @@ export class RecommendedGamesComponent implements OnInit {
     this.displayStyleQuestionModal = 'none';
   }
 
-  // saveAndCloseEditResponse(thisQuestion: Question): void {
-  //   console.log('saveAndCloseEditResponse called');
-  //   thisQuestion.userResponse = this.selectedResponse;
-  //   this.displayEditResponseModal = 'none';
-  // }
 
   clearAllResponses(): void {
     console.log('clearAllResponses called');
